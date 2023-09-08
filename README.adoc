@@ -47,7 +47,7 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 == 3. Moving past a DPI firewall's throttle triggers
 
 .Install the following program, specific to each OS (operating system):
-. macOS: https://github.com/xvzc/SpoofDPI[SpoofDPI].
+. macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI].
 . Windows: https://github.com/macronut/ghostcp[GhosTCP].
 . Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
 . iOS/iPadOS: None available.
@@ -61,10 +61,10 @@ You have to do specific instructions for each operating system, otherwise the DP
 NOTE: Tested on Ventura 13.5.2.
 
 . Open "Terminal".
-. Type `sudo -i` then press kbd:[Enter].
+. Type `sudo -i`, enter your login password, then press kbd:[Enter].
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
 . Type `cp` then drag the `com.felikcat.set.ttl.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
-. Run in the Terminal: `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
+. `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
 
 ====
 
