@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+    <dict>
+        <key>Label</key>
+        <string>com.felikcat.set.ttl</string>
+        <key>MachServices</key>
+        <dict>
+            <key>com.felikcat.set.ttl</key>
+            <true />
+        </dict>
+        <key>ProgramArguments</key>
+        <array>
+            <string>/var/root/set-ios-tcp-stack.sh</string>
+        </array>
+        <key>UserName</key>
+        <string>root</string>
+        <key>GroupName</key>
+        <string>wheel</string>
+        <key>KeepAlive</key>
+        <false />
+        <key>RunAtLoad</key>
+        <true />
+    </dict>
+</plist>

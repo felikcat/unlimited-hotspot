@@ -12,7 +12,7 @@ endif::[]
 [.lead]
 Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
 
-. *+* Allows hotspot/tethering on telecom plans that block it.
+. *+* Allows hotspot/hotspot on telecom plans that block it.
 
 . *+* Increased reliablity of your internet.
 
@@ -32,7 +32,7 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
 
-. Install the following apps on the tethering (Android) device:
+. Install the following apps on the hotspot (Android) device:
 
 * A https://f-droid.org/repo/jackpal.androidterm_72.apk[terminal emulator]; for that app make sure to allow all the permissions it asked for.
 
@@ -44,9 +44,36 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 . Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v5.zip" that was downloaded.
 . Reboot.
 
+== 3. Moving past a DPI firewall's throttle triggers
+
+.Install the following program, specific to each OS (operating system):
+. macOS: https://github.com/xvzc/SpoofDPI[SpoofDPI].
+. Windows: https://github.com/macronut/ghostcp[GhosTCP].
+. Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
+. iOS/iPadOS: None available.
+
+. Install the https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel] app on devices running: Windows, macOS, Linux, BSDs.
+- This has to be installed on each device wanting to get past DPI firewalls.
+- Java is required to run PowerTunnel. I recommend the latest LTS release of https://adoptium.net/[Adoptium], as it's the best open-source Java installer.
+
+=== Devices
+You have to do specific instructions for each operating system, otherwise the DPI firewall might temporarily catch on.
+
+.macOS
+[%collapsible]
+====
+NOTE: Tested on Ventura 13.5.2.
+
+. Open "Terminal".
+. Type `sudo -i` then press kbd:[Enter].
+. Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
+. Type `cp` then drag the `com.felikcat.set.ttl.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
+. Run in the Terminal: `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
+
+====
 
 === Routers
-If the tethering device is plugged into a router, likely through USB, additional steps are required:
+If the hotspot device is plugged into a router, likely through USB, additional steps are required:
 
 .Asuswrt-Merlin
 [%collapsible]
@@ -141,20 +168,11 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 ___
 ====
 
-== 3. Moving past a DPI firewall's throttle triggers
-
-. Install the https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android] app on the tethering device.
-
-. Install the https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel] app on devices running: Windows, macOS, Linux, BSDs.
-- Java is required to run PowerTunnel. I recommend the latest LTS release of https://adoptium.net/[Adoptium], as it's the best open-source Java installer.
-
-client/tethered to device with its LibertyTunnel addon enabled, and test again.
-
-== 4. Confirm the tethering is un-throttled
-TIP: After enabling USB tethering, enable "Data Saver". This tells Android to restrict data to USB tethering and what app is at the forefront only.
+== 4. Confirm the hotspot is un-throttled
+TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
 
 . Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
-This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and tethering/hotspot detections.
+This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and hotspot/hotspot detections.
 
 
 
@@ -163,8 +181,9 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
 
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
+- If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
 
-. Only if you have high ping or ping spiking issues: try disabling "Tethering hardware acceleration" in the Settings app.
+. Only if you have high ping or ping spiking issues: try disabling "hotspot hardware acceleration" in the Settings app.
 
 == Appendices
 
@@ -178,7 +197,9 @@ Learning resources
 . https://archive.org/download/p173_20220313/p173.pdf
 . https://archive.org/download/technology-showcase-policy-control-for-connected-and-tethered-devices/technology-showcase-policy-control-for-connected-and-tethered-devices.pdf
 . https://archive.org/download/geneva_ccs19/geneva_ccs19.pdf
-. Random XDA forums posts and threads to accumulate personal experiences with hotspot/tethering bypass attempts.
+. Random XDA forums posts and threads to accumulate personal experiences with hotspot throttling or blocking bypass attempts.
+. https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/ and https://github.com/NikolaiT/zardaxt
+. https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/
 
 [.lead]
 Third-party scripts
