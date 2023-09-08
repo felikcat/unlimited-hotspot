@@ -1,0 +1,196 @@
+:experimental:
+ifdef::env-github[]
+:icons:
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
+
+== About
+[.lead]
+Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
+
+. *+* Allows hotspot/tethering on telecom plans that block it.
+
+. *+* Increased reliablity of your internet.
+
+. *+* Speeds up your device in an attempt to get higher internet speeds.
+
+. *+* Bypasses limited video quality on YouTube or other streaming services, and temporary blockades.
+
+. *+* Within reason, grants you unlimited data. Depends on the telecom and your plan however.
+
+. *-* Only works on "bootloader unlocked" Android devices.
+- A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$250 USD is still reasonable to you.
+*** https://calyxos.org/install/[CalyxOS] is recommended for Google devices, the Fairphone 4, and the SHIFT6mq.
+
+== 1. Preparation
+. Unlock the bootloader if you haven't already.
+- https://www.youtube.com/watch?v=4VBv7vCXKd8[Video tutorial for the Google Pixel devices].
+
+. https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
+
+. Install the following apps on the tethering (Android) device:
+
+* A https://f-droid.org/repo/jackpal.androidterm_72.apk[terminal emulator]; for that app make sure to allow all the permissions it asked for.
+
+* https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] for its radio band locking to maintain and increase network speeds.
+
+* https://github.com/AdAway/AdAway/releases[AdAway] to block Network Signal Guru's advertising.
+- AdAway requires you to enable "Systemless Hosts" in Magisk's settings.
+
+* https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
+
+
+== 2. Fully blocking Android snitching to your telecom
+. Download our https://github.com/felikcat/unlimited-hotspot/releases/download/v5/unlimited-hotspot-v5.zip[Unlimited Hotspot] Magisk module.
+. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v5.zip" that was downloaded.
+. Reboot.
+
+
+=== Routers
+If the tethering device is plugged into a router, likely through USB, additional steps are required:
+
+.Asuswrt-Merlin
+[%collapsible]
+====
+. `Advanced Settings - WAN` -> disable `Extend the TTL value` and `Spoof LAN TTL value`.
+. `Advanced Settings - Administration`
+- `Enable JFFS custom scripts and configs` -> "Yes"
+- `Enable SSH` -> "LAN only"
+. Replace the LAN IP and login name if needed: `$ ssh 192.168.50.1 -l asus`
+- Use other SSH clients if preferred, such as MobaXterm or Termius.
+. `# nano /jffs/scripts/wan-event`
+
+[source, shell]
+----
+#!/bin/sh
+# shellcheck disable=SC2068
+Say() {
+  printf '%s%s' "$$" "$@" | logger -st "($(basename "$0"))"
+}
+WAN_IF=$1
+WAN_STATE=$2
+
+# Call appropriate script based on script_type
+SERVICE_SCRIPT_NAME="wan${WAN_IF}-${WAN_STATE}"
+SERVICE_SCRIPT_LOG="/tmp/WAN${WAN_IF}_state"
+
+# Execute and log script state
+if [ -f "/jffs/scripts/${SERVICE_SCRIPT_NAME}" ]; then
+  Say "     Script executing.. for wan-event: $SERVICE_SCRIPT_NAME"
+  echo "$SERVICE_SCRIPT_NAME" >"$SERVICE_SCRIPT_LOG"
+  sh /jffs/scripts/"${SERVICE_SCRIPT_NAME}" "$@"
+else
+  Say "     Script not defined for wan-event: $SERVICE_SCRIPT_NAME"
+fi
+
+##@Insert##
+----
+
+`# nano /jffs/scripts/wan0-connected`
+[source, shell]
+----
+#!/bin/sh
+
+# HACK: I am unsure of what to check.
+## Do this too early and the TTL & HL won't be set.
+sleep 5s; modprobe xt_HL; wait
+
+# Removes these iptables entries if present.
+# WARNING: Only removes these entries once, and never assumes the same entries are present twice.
+iptables -t mangle -D PREROUTING -i usb+ -j TTL --ttl-inc 2
+iptables -t mangle -D POSTROUTING -o usb+ -j TTL --ttl-inc 2
+ip6tables -t mangle -D PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
+ip6tables -t mangle -D POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
+
+# TTL & HL hotspot detection bypass.
+## Increments the TTL & HL by 2 (1 for the router, 1 for the devices connected to the router).
+iptables -t mangle -A PREROUTING -i usb+ -j TTL --ttl-inc 2
+iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
+ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
+ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
+----
+Now, set permissions correctly to avoid this error: `custom_script: Found wan-event, but script is not set executable!` +
+`# chmod a+rx /jffs/scripts/*` +
+`# reboot`
+
+___
+====
+
+
+.GoldenOrb or OpenWrt via LuCI
+[%collapsible]
+====
+. GoldenOrb specific: `Network` -> `Firewall` -> `Custom TTL Settings`
+- Ensure its option is disabled.
+. `Network` -> `Firewall` -> `Custom Rules`
+[source, shell]
+----
+# Removes these iptables entries if present; only removes once, so if the same entry is present twice (script assumes this never happens), it would need to be removed twice.
+iptables -t mangle -D PREROUTING -i usb+ -j TTL --ttl-inc 2
+iptables -t mangle -D POSTROUTING -o usb+ -j TTL --ttl-inc 2
+ip6tables -t mangle -D PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
+ip6tables -t mangle -D POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
+
+# TTL & HL hotspot detection bypass.
+## Increments the TTL & HL by 2 (1 for the router, 1 for the devices connected to the router).
+iptables -t mangle -A PREROUTING -i usb+ -j TTL --ttl-inc 2
+iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
+ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
+ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
+----
+
+___
+====
+
+== 3. Moving past a DPI firewall's throttle triggers
+
+. Install the https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android] app on the tethering device.
+
+. Install the https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel] app on devices running: Windows, macOS, Linux, BSDs.
+- Java is required to run PowerTunnel. I recommend the latest LTS release of https://adoptium.net/[Adoptium], as it's the best open-source Java installer.
+
+client/tethered to device with its LibertyTunnel addon enabled, and test again.
+
+== 4. Confirm the tethering is un-throttled
+TIP: After enabling USB tethering, enable "Data Saver". This tells Android to restrict data to USB tethering and what app is at the forefront only.
+
+. Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
+This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and tethering/hotspot detections.
+
+
+
+== 5. Improving internet speeds
+. Search for "Roaming" in the Settings app, then disable it.
+- Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
+
+. Use Network Signal Guru to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device.
+
+. Only if you have high ping or ping spiking issues: try disabling "Tethering hardware acceleration" in the Settings app.
+
+== Appendices
+
+.Resources used
+[%collapsible]
+====
+
+[.lead]
+Learning resources
+
+. https://archive.org/download/p173_20220313/p173.pdf
+. https://archive.org/download/technology-showcase-policy-control-for-connected-and-tethered-devices/technology-showcase-policy-control-for-connected-and-tethered-devices.pdf
+. https://archive.org/download/geneva_ccs19/geneva_ccs19.pdf
+. Random XDA forums posts and threads to accumulate personal experiences with hotspot/tethering bypass attempts.
+
+[.lead]
+Third-party scripts
+
+. `/jffs/scripts/wan-event` used for Asuswrt-Merlin is a refined version of https://www.snbforums.com/threads/wan-start-script-also-run-on-wan-stop.61295/#post-542636[this script].
+
+====
+
+___
+*You've reached the end of this guide.* Star it if you liked it.
