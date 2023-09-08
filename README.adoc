@@ -52,10 +52,6 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 . Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
 . iOS/iPadOS: None available.
 
-. Install the https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel] app on devices running: Windows, macOS, Linux, BSDs.
-- This has to be installed on each device wanting to get past DPI firewalls.
-- Java is required to run PowerTunnel. I recommend the latest LTS release of https://adoptium.net/[Adoptium], as it's the best open-source Java installer.
-
 === Devices
 You have to do specific instructions for each operating system, otherwise the DPI firewall might temporarily catch on.
 
