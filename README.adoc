@@ -20,7 +20,7 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 
 . *+* Bypasses limited video quality on YouTube or other streaming services, and temporary blockades.
 
-. *+* Within reason, grants you unlimited data. Depends on the telecom and your plan however.
+. *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
 
 . *-* Only works on "bootloader unlocked" Android devices.
 - A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$250 USD is still reasonable to you.
@@ -35,11 +35,6 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 . Install the following apps on the tethering (Android) device:
 
 * A https://f-droid.org/repo/jackpal.androidterm_72.apk[terminal emulator]; for that app make sure to allow all the permissions it asked for.
-
-* https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] for its radio band locking to maintain and increase network speeds.
-
-* https://github.com/AdAway/AdAway/releases[AdAway] to block Network Signal Guru's advertising.
-- AdAway requires you to enable "Systemless Hosts" in Magisk's settings.
 
 * https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
@@ -167,7 +162,7 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 . Search for "Roaming" in the Settings app, then disable it.
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
 
-. Use Network Signal Guru to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device.
+. Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
 
 . Only if you have high ping or ping spiking issues: try disabling "Tethering hardware acceleration" in the Settings app.
 
