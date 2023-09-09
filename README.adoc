@@ -70,7 +70,7 @@ NOTE: Tested on Ventura 13.5.2.
 
 .Now we need to add a Packet Filter rule and enable it.
 . `nano /etc/pf.conf`
-. Add `scrub reassemble tcp` before `nat-anchor`: +
+. Add the following three lines before `nat-anchor`: +
 image:pf_rules.png[]
 . `pfctl -f /etc/pf.conf` then `pfctl -e`.
 
