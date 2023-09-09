@@ -65,6 +65,7 @@ NOTE: Tested on Ventura 13.5.2.
 . Type `sudo -i`, enter your login password, then press kbd:[Enter].
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
 . Type `cp` then drag the `com.felikcat.set.ttl.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
+. `chmod +x /var/root/set-ios-tcp-stack.sh`
 . `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
 
 .Now we need to add a Packet Filter rule and enable it.
