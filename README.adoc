@@ -48,14 +48,6 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 == 3. Moving past a DPI firewall's throttle triggers
 
 .Install the following program, specific to each OS (operating system):
-. macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI].
-. Windows: https://github.com/macronut/ghostcp[GhosTCP].
-. Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
-. iOS/iPadOS: None available.
-
-=== Devices
-You have to do specific instructions for each operating system, otherwise the DPI firewall might temporarily catch on.
-
 .macOS
 [%collapsible]
 ====
@@ -76,7 +68,16 @@ NOTE: Tested on Ventura 13.5.2.
 image:pf_rules.png[]
 . `pfctl -f /etc/pf.conf` then `pfctl -e`.
 
+.Install then run https://github.com/xvzc/SpoofDPI[SpoofDPI].
+. See the directions on their website for usage.
+
+'''
 ====
+
+* Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI].
+* Windows: https://github.com/macronut/ghostcp[GhosTCP].
+* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
+* iOS/iPadOS: None available.
 
 === Routers
 If the hotspot device is plugged into a router, likely through USB, additional steps are required:
