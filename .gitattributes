@@ -4,3 +4,4 @@ META-INF/** text eol=lf
 *.sh text eol=lf
 *.adoc text eol=lf
 *.json text eol=lf
+macOS/* text eol=lf
