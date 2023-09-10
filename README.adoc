@@ -61,14 +61,16 @@ You have to do specific instructions for each operating system, otherwise the DP
 ====
 NOTE: Tested on Ventura 13.5.2.
 
+. Open Unlimited Hotspot's "macOS" folder in Finder.
 . Open "Terminal".
+
 . Type `sudo -i`, enter your login password, then press kbd:[Enter].
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
 . Type `cp` then drag the `com.felikcat.set.ttl.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
 . `chmod +x /var/root/set-ios-tcp-stack.sh`
 . `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
 
-.Now we need to add a Packet Filter rule and enable it.
+.Now we need to add three Packet Filter rules and enable PF.
 . `nano /etc/pf.conf`
 . Add the following three lines before `nat-anchor`: +
 image:pf_rules.png[]
@@ -212,5 +214,4 @@ Third-party scripts
 
 ====
 
-___
 *You've reached the end of this guide.* Star it if you liked it.
