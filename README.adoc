@@ -41,8 +41,8 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 
 
 == 2. Fully blocking Android snitching to your telecom
-. Download our https://github.com/felikcat/unlimited-hotspot/releases/download/v5/unlimited-hotspot-v5.zip[Unlimited Hotspot] Magisk module.
-. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v5.zip" that was downloaded.
+. Download our https://github.com/felikcat/unlimited-hotspot/releases/download/v6/unlimited-hotspot-v6.zip[Unlimited Hotspot] Magisk module.
+. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v6.zip" that was downloaded.
 . Reboot.
 
 == 3. Moving past a DPI firewall's throttle triggers
