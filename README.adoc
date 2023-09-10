@@ -25,7 +25,10 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 
 . *-* Only works on "bootloader unlocked" Android devices.
 - A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$250 USD is still reasonable to you.
-*** https://calyxos.org/install/[CalyxOS] is recommended for Google devices, the Fairphone 4, and the SHIFT6mq.
+*** https://grapheneos.org/[GrapheneOS] is recommended for Google devices. +
+NOTE: Its additional security does not come at the cost of usability.
+*** https://calyxos.org/install/[CalyxOS] is an alternative for Google devices, the Fairphone 4, and the SHIFT6mq. +
+WARNING: CalyxOS is slower to update major Android versions compared to GrapheneOS, it can be delayed by months.
 
 == 1. Preparation
 . Unlock the bootloader if you haven't already.
