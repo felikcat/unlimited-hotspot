@@ -13,9 +13,8 @@ resetprop net.tethering.noprovisioning true
 resetprop tether_entitlement_check_state 0
 
 # Fully shut-down the device to prevent connection issues; never hibernate on "Power off".
-resetprop persist.sys.shutdown.mode 
-resetprop persist.ro.config.hw_quickpoweron false
-resetprop persist.ro.warmboot.capability 0
+resetprop -p persist.ro.config.hw_quickpoweron false
+resetprop -p persist.ro.warmboot.capability 0
 
 
 #== Performance tweaks ==
