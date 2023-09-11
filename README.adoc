@@ -15,22 +15,24 @@ Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshutt
 
 . *+* Allows hotspot/hotspot on telecom plans that block it.
 
-. *+* Increased reliablity of your internet.
-
-. *+* Speeds up your device in an attempt to get higher internet speeds.
-
-. *+* Bypasses limited video quality on YouTube or other streaming services, and temporary blockades.
-
 . *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
 
+. *+* Is more reliable and has higher internet speeds.
+
+. *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
+
+
 . *-* Only works on "bootloader unlocked" Android devices.
-- A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$250 USD is still reasonable to you.
+- A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$210 USD is still reasonable to you.
 *** https://grapheneos.org/[GrapheneOS] is recommended for Google devices. +
 NOTE: Its additional security does not come at the cost of usability.
 *** https://calyxos.org/install/[CalyxOS] is an alternative for Google devices, the Fairphone 4, and the SHIFT6mq. +
-WARNING: CalyxOS is slower to update major Android versions compared to GrapheneOS, it can be delayed by months.
+WARNING: CalyxOS is slow at updating to major Android versions, unlike GrapheneOS, major updates can be delayed by months.
 
 == 1. Preparation
+
+CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If so, please skip to section 3; do not unlock your bootloader, and do not install Magisk.*
+
 . Unlock the bootloader if you haven't already.
 - https://www.youtube.com/watch?v=4VBv7vCXKd8[Video tutorial for the Google Pixel devices].
 
