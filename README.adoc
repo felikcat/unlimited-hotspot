@@ -13,21 +13,16 @@ endif::[]
 [.lead]
 Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
 
+. *+* Fully open-source and free of charge.
+. *+* More reliable and has higher internet speeds.
 . *+* Allows hotspot/hotspot on telecom plans that block it.
-
 . *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
-
-. *+* Is more reliable and has higher internet speeds.
-
 . *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
 
 
 . *-* Only works on "bootloader unlocked" Android devices.
 - A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$210 USD is still reasonable to you.
-*** https://grapheneos.org/[GrapheneOS] is recommended for Google devices. +
-NOTE: Its additional security does not come at the cost of usability.
-*** https://calyxos.org/install/[CalyxOS] is an alternative for Google devices, the Fairphone 4, and the SHIFT6mq. +
-WARNING: CalyxOS is slow at updating to major Android versions, unlike GrapheneOS, major updates can be delayed by months.
+*** https://grapheneos.org/[GrapheneOS] is recommended for Google devices.
 
 == 1. Preparation
 
@@ -226,5 +221,6 @@ Third-party scripts
 
 Tip me if you want more telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023, I've only tested with a Magenta T-Mobile plan.
 
-https://ko-fi.com/G2G8P42CU[image:https://ko-fi.com/img/githubbutton_sm.svg[ko-fi]]
-image:kofi_qrcode.png[]
+Scan this image, or click on it to tip me on Ko-fi:
+
+image:kofi_qrcode.png[link="https://ko-fi.com/felikcat"]
