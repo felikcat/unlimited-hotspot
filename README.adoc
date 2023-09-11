@@ -221,3 +221,17 @@ Third-party scripts
 ====
 
 *You've reached the end of this guide.* Star it if you liked it.
+
+Tip me if you want more telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. I've only tested with a Magenta T-Mobile plan.
+
+++++
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('felikcat', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Tip me',
+    'floating-chat.donateButton.background-color': '#00b9fe',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
+++++
