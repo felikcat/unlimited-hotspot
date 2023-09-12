@@ -13,18 +13,39 @@ endif::[]
 [.lead]
 Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
 
+.On Android
+[%collapsible]
+====
+
 . *+* Fully open-source and free of charge.
 . *+* More reliable and has higher internet speeds.
-. *+* Allows hotspot/hotspot on telecom plans that block it.
 . *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
 . *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
-
 
 . *-* Only works on "bootloader unlocked" Android devices.
 - A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$210 USD is still reasonable to you.
 *** https://grapheneos.org/[GrapheneOS] is recommended for Google devices.
 
+====
+
+NOTE: iOS and iPadOS are TODO; I am currently trying out some ideas I have to successfully pull it off, and all without jailbreaking. +
+I doubt it'll be as fast as the methods used on Android, but the slowdown should be minimal.
+
+.On iOS and iPadOS
+[%collapsible]
+====
+
+. *+* Fully open-source and free of charge.
+. *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
+. *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
+
+====
+
 == 1. Preparation
+
+.*Android*
+[%collapsible]
+====
 
 CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If so, please skip to section 3; do not unlock your bootloader, and do not install Magisk.*
 
@@ -33,17 +54,30 @@ CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If s
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
 
-. Install the following apps on the hotspot (Android) device:
-
-* A https://f-droid.org/repo/jackpal.androidterm_72.apk[terminal emulator]; for that app make sure to allow all the permissions it asked for.
-
-* https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
+. On the hotspot/tethering device, install  https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
 
 == 2. Fully blocking Android snitching to your telecom
 . Download our https://github.com/felikcat/unlimited-hotspot/releases/download/v6/unlimited-hotspot-v6.zip[Unlimited Hotspot] Magisk module.
 . Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v6.zip" that was downloaded.
 . Reboot.
+
+====
+
+.*iOS and iPadOS*
+[%collapsible]
+====
+
+.macOS
+[%collapsible]
+====
+
+. Open the Terminal, and run: `brew install wireguard-tools`
+. 
+
+====
+
+====
 
 == 3. Moving past a DPI firewall's throttle triggers
 
@@ -53,8 +87,8 @@ CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If s
 ====
 NOTE: Tested on Ventura 13.5.2.
 
-. Open Unlimited Hotspot's "macOS" folder in Finder.
-. Open "Terminal".
+. Open Unlimited Hotspot's "macOS" folder in *Finder*.
+. Open *Terminal*.
 
 . Type `sudo -i`, enter your login password, then press kbd:[Enter].
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
@@ -68,13 +102,10 @@ NOTE: Tested on Ventura 13.5.2.
 image:pf_rules.png[]
 . `pfctl -f /etc/pf.conf` then `pfctl -e`.
 
-.Install then run https://github.com/xvzc/SpoofDPI[SpoofDPI].
-. See the directions on their website for usage.
-
 '''
 ====
 
-* Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI].
+* Linux: https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret].
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
 * Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
 * iOS/iPadOS: None available.
