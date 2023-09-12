@@ -11,35 +11,13 @@ endif::[]
 
 == About
 [.lead]
-Compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
-
-.On Android
-[%collapsible]
-====
+This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
 
 . *+* Fully open-source and free of charge.
-. *+* More reliable and has higher internet speeds.
-. *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
+. *+* Better reliablity and internet speeds.
+. *+* On some "unlimited" telecom plans, grants you true unlimited data.
 . *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
 
-. *-* Only works on "bootloader unlocked" Android devices.
-- A bootloader unlocked Google Pixel 4A (5G) can be had for ~$80 USD, and has very fast mobile data. Buy a Pixel 6 instead if ~$210 USD is still reasonable to you.
-*** https://grapheneos.org/[GrapheneOS] is recommended for Google devices.
-
-====
-
-NOTE: iOS and iPadOS are TODO; I am currently trying out some ideas I have to successfully pull it off, and all without jailbreaking. +
-I doubt it'll be as fast as the methods used on Android, but the slowdown should be minimal.
-
-.On iOS and iPadOS
-[%collapsible]
-====
-
-. *+* Fully open-source and free of charge.
-. *+* Within reason, grants you unlimited data. This depends on the telecom and your plan.
-. *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
-
-====
 
 == 1. Preparation
 
@@ -49,39 +27,30 @@ I doubt it'll be as fast as the methods used on Android, but the slowdown should
 
 CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If so, please skip to section 3; do not unlock your bootloader, and do not install Magisk.*
 
-. Unlock the bootloader if you haven't already.
-- https://www.youtube.com/watch?v=4VBv7vCXKd8[Video tutorial for the Google Pixel devices].
+. Unlock the bootloader; https://www.youtube.com/watch?v=4VBv7vCXKd8[video tutorial for the Google Pixel devices].
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
 
-. On the hotspot/tethering device, install  https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
-
-
-== 2. Fully blocking Android snitching to your telecom
-. Download our https://github.com/felikcat/unlimited-hotspot/releases/download/v6/unlimited-hotspot-v6.zip[Unlimited Hotspot] Magisk module.
+. Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v6/unlimited-hotspot-v6.zip[Unlimited Hotspot] Magisk module.
 . Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v6.zip" that was downloaded.
 . Reboot.
 
 ====
 
-.*iOS and iPadOS*
-[%collapsible]
-====
 
-.macOS
-[%collapsible]
-====
+== 3. Moving past DPI firewalls
 
-. Open the Terminal, and run: `brew install wireguard-tools`
-. 
+.Install the following program, specific to each OS:
 
-====
+* FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-====
+* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], zapret also works -- with crashing issues on macOS Ventura 13.5.2.
 
-== 3. Moving past a DPI firewall's throttle triggers
+* Windows: https://github.com/macronut/ghostcp[GhosTCP].
+* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
+* iOS/iPadOS: None available.
 
-.Install the following program, specific to each OS (operating system):
+=== Additional required steps
 .macOS
 [%collapsible]
 ====
@@ -92,9 +61,9 @@ NOTE: Tested on Ventura 13.5.2.
 
 . Type `sudo -i`, enter your login password, then press kbd:[Enter].
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
-. Type `cp` then drag the `com.felikcat.set.ttl.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
+. Type `cp` then drag the `felikcat.set.ios.tcpstack.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
 . `chmod +x /var/root/set-ios-tcp-stack.sh`
-. `launchctl load -w /Library/LaunchDaemons/com.felikcat.set.ttl.plist`.
+. `launchctl load -w /Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist`.
 
 .Now we need to add three Packet Filter rules and enable PF.
 . `nano /etc/pf.conf`
@@ -104,11 +73,6 @@ image:pf_rules.png[]
 
 '''
 ====
-
-* Linux: https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret].
-* Windows: https://github.com/macronut/ghostcp[GhosTCP].
-* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
-* iOS/iPadOS: None available.
 
 === Routers
 If the hotspot device is plugged into a router, likely through USB, additional steps are required:
@@ -215,8 +179,17 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 
 
 == 5. Improving internet speeds
-. Search for "Roaming" in the Settings app, then disable it.
+
+.Disable roaming
+* *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
+
+.Switch cell tower providers specifically for problematic areas
+* *iOS*: Context: T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
+image:ios_network_selection.png[width=320,height=200]
+
+.(Android with Magisk only) -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
+. Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
 - If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
@@ -225,18 +198,16 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 
 == Appendices
 
-.Resources used
+.Learning resources
 [%collapsible]
 ====
-
-[.lead]
-Learning resources
 
 . https://archive.org/download/p173_20220313/p173.pdf
 . https://archive.org/download/technology-showcase-policy-control-for-connected-and-tethered-devices/technology-showcase-policy-control-for-connected-and-tethered-devices.pdf
 . https://archive.org/download/geneva_ccs19/geneva_ccs19.pdf
 . Random XDA forums posts and threads to accumulate personal experiences with hotspot throttling or blocking bypass attempts.
-. https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/ and https://github.com/NikolaiT/zardaxt
+. https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/
+. https://github.com/NikolaiT/zardaxt
 . https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/
 
 [.lead]
@@ -250,8 +221,8 @@ Third-party scripts
 
 '''
 
-Tip me if you want more telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023, I've only tested with a Magenta T-Mobile plan.
+Tip me if you want more telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023: I've only tested with a Magenta T-Mobile plan, with me maxing out its hotspot data out.
 
 Scan this image, or click on it to tip me on Ko-fi:
 
-image:kofi_qrcode.png[link="https://ko-fi.com/felikcat"]
+image:kofi_qrcode.png[width=120,height=120,link="https://ko-fi.com/felikcat"]
