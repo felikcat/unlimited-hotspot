@@ -188,7 +188,7 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 
 .Switch cell tower providers specifically for problematic areas
 * *iOS*: Context: T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
-image:ios_network_selection.png[width=320,height=200]
+image:ios_network_selection.PNG[width=320,height=200]
 
 .(Android with Magisk only) -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
