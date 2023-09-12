@@ -17,6 +17,8 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 . *+* Better reliablity and internet speeds.
 . *+* On some "unlimited" telecom plans, grants you true unlimited data.
 . *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
+. *-* Currently data is still classified as Hotspot Usage on iOS & iPadOS devices. This will be fixed later.
+- Besides the Hotspot Usage throttle, other forms of throttling are still bypassed on T-Mobile while tethering from a iOS or iPadOS device.
 
 
 == 1. Preparation
@@ -48,7 +50,7 @@ CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If s
 
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
 * Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
-* iOS/iPadOS: None available.
+* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; while a lazy choice, it's better than nothing. Expect a better solution later on.
 
 === Additional required steps
 .macOS
