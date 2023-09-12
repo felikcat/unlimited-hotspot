@@ -38,7 +38,7 @@ CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If s
 ====
 
 
-== 3. Moving past DPI firewalls
+== 2. Moving past DPI firewalls
 
 .Install the following program, specific to each OS:
 
@@ -170,7 +170,7 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 ___
 ====
 
-== 4. Confirm the hotspot is un-throttled
+== 3. Confirm the hotspot is un-throttled
 TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
 
 . Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
@@ -178,7 +178,7 @@ This tests for throttling of streaming servers (Netflix), various forms of data 
 
 
 
-== 5. Improving internet speeds
+== 4. Improving internet speeds
 
 .Disable roaming
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
