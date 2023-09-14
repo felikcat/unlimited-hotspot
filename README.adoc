@@ -15,11 +15,9 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
-. *+* On some "unlimited" telecom plans, grants you true unlimited data.
-. *+* Bypasses limited video quality on YouTube or other streaming services, and other DPI firewall rules.
-. *-* Currently data is still classified as Hotspot Usage on iOS & iPadOS devices. This will be fixed later.
-- Besides the Hotspot Usage throttle, other forms of throttling are still bypassed on T-Mobile while tethering from a iOS or iPadOS device.
-
+. *+* On "unlimited" telecom plans, grants you truely unlimited data for hotspots.
+- Use within reason. Try not to use over a TB (1000GB) of data in a month.
+. *+* Bypases various types of throttling, such as limited video quality on YouTube or other streaming services.
 
 == 1. Preparation
 
@@ -27,20 +25,73 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 [%collapsible]
 ====
 
-CAUTION: *Some OSes block Android snitching by default, such as GrapheneOS. If so, please skip to section 3; do not unlock your bootloader, and do not install Magisk.*
+CAUTION: *Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".*
 
 . Unlock the bootloader; https://www.youtube.com/watch?v=4VBv7vCXKd8[video tutorial for the Google Pixel devices].
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
 
-. Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v6/unlimited-hotspot-v6.zip[Unlimited Hotspot] Magisk module.
-. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v6.zip" that was downloaded.
+. Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v7/unlimited-hotspot-v7.zip[Unlimited Hotspot] Magisk module.
+. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v7.zip" that was downloaded.
 . Reboot.
 
 ====
 
+.!!WIP / NOT USABLE!! *iOS and iPadOS*; for the non-jailbroken, but with slower network speeds
+[%collapsible]
+====
 
-== 2. Moving past DPI firewalls
+. Install iSH and LocalSend.
+- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
+
+. Open iSH, then run: `apk update; apk upgrade; apk add openssl stunnel; mkdir -p /run/stunnel; openssl genrsa -out RootCAKey.pem 2048; openssl req -x509 -sha256 -new -nodes -key RootCAKey.pem -days 3650 -out RootCACert.pem; chmod 600 RootCAKey.pem`
+
+- When prompted for a Country Name, keep pressing kbd:[Return] until completed.
+
+. Run this command to setup stunnel:
+```
+echo -n "
+cert = /root/RootCACert.pem
+key = /root/RootCAKey.pem
+
+# stunnel's SOCKS5 is encapsulated in TCP; act closer to UDP with TCP_NODELAY=1.
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+# If stunnel works, set to: no
+foreground = yes
+
+# Expect that DNS resolving won't be immediate, due to mobile internet drop-outs.
+delay = yes
+
+[hotspot server]
+accept = localhost:4540
+protocol = socks
+PSKsecrets = /root/psk.txt
+" > /etc/stunnel/stunnel.conf
+```
+
+.macOS
+. `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
+. Open Keychain Access.
+. Drag the Root CA certificate into Keychain Access, and fully trust it.
+
+```
+foreground = yes
+pid = /tmp/stunnel4.pid
+client = yes
+debug = 6
+
+[hotspot client]
+client = yes
+accept = localhost:9080
+connect = 192.168.2.2:4540
+PSKsecrets = psk.txt
+```
+====
+
+
+== 2. Moving past throttling
 
 .Install the following program, specific to each OS:
 
@@ -65,13 +116,13 @@ NOTE: Tested on Ventura 13.5.2.
 . Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
 . Type `cp` then drag the `felikcat.set.ios.tcpstack.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
 . `chmod +x /var/root/set-ios-tcp-stack.sh`
-. `launchctl load -w /Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist`.
+. `launchctl load -w /Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist`
 
 .Now we need to add three Packet Filter rules and enable PF.
 . `nano /etc/pf.conf`
 . Add the following three lines before `nat-anchor`: +
 image:pf_rules.png[]
-. `pfctl -f /etc/pf.conf` then `pfctl -e`.
+. `pfctl -f /etc/pf.conf` then `pfctl -e`
 
 '''
 ====
@@ -175,8 +226,8 @@ ___
 == 3. Confirm the hotspot is un-throttled
 TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
 
-. Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
-This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and hotspot/hotspot detections.
+* Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
+- This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and hotspot detections.
 
 
 
@@ -194,9 +245,10 @@ image:ios_network_selection.PNG[width=320,height=200]
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
-- If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
 
-. Only if you have high ping or ping spiking issues: try disabling "hotspot hardware acceleration" in the Settings app.
+. If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
+
+TIP: *Android* -> Only if you have high ping or ping spiking issues: try disabling "hotspot hardware acceleration" in the Settings app.
 
 == Appendices
 
@@ -223,7 +275,7 @@ Third-party scripts
 
 '''
 
-Tip me if you want more telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023: I've only tested with a Magenta T-Mobile plan, with me maxing out its hotspot data out.
+Tip me if you want more pre-paid United States telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023: I've only tested with a Magenta T-Mobile plan, with me maxing out its hotspot data out.
 
 Scan this image, or click on it to tip me on Ko-fi:
 
