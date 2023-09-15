@@ -15,6 +15,7 @@ endif::[]
 *The client has to make its own hotspot for the iOS/iPadOS device to connect to. Here's the instructions for each OS:*
 
 WARNING: The macOS instructions rely on deprecated functions of the OS, and are unreliable. If you're willing, you'd have a nicer time on Asahi Linux (for M1 or newer "arm64" Macs). https://www.youtube.com/watch?v=1iiFhhOkv14[Here's a tutorial video.]
+
 .macOS
 . Open Terminal.
 . `ssh-keygen -t ed25519; chmod -R 700 $HOME/.ssh`
