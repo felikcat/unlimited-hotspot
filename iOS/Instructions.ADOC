@@ -1,0 +1,65 @@
+CAUTION: Neither of these are fully functional, they are most of the way there.
+
+.Non-jailbroken *iOS and iPadOS*; SSH method.
+[%collapsible]
+====
+. Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
+- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
+
+. Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
+
+. Open iSH, then run `iOS/install_ssh.sh`
+- When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
+
+.Run in -d (debug mode) to close on any errors.
+. `/usr/sbin/sshd -d`
+
+.macOS
+
+. Make sure you don't have any Filters & Proxies already inside "Settings -> Network".
+. Open Terminal.
+. `ssh-keygen -t ed25519`
+- When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
+
+. `cat ~/.ssh/id_ed25519.pub | base64 | base64 -d > ~/publickey | pbcopy`
+- This will copy the result to the clipboard; the clipboard is synced between Apple devices.
+
+. On the iPhone or iPad: `nano ~/.ssh/authorized_keys`, then paste the clipboard, and save the file. 
+
+. `chmod -R 700 /Users/admin/.ssh`
+
+. `pip3 install rsp`
+
+====
+
+
+.Non-jailbroken *iOS and iPadOS*; SSL method.
+[%collapsible]
+====
+
+. Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
+- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
+
+. Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
+
+. Open iSH, then run: `iOS/install_ssl`
+- When prompted for a Country Name, keep pressing kbd:[Return] until completed.
+
+.macOS
+. `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
+. Open Keychain Access.
+. Drag the Root CA certificate into Keychain Access, and fully trust it.
+
+```
+foreground = yes
+pid = /tmp/stunnel4.pid
+client = yes
+debug = 6
+
+[hotspot client]
+client = yes
+accept = localhost:9080
+connect = 192.168.2.2:4540
+PSKsecrets = psk.txt
+```
+====

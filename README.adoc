@@ -16,18 +16,18 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
 . *+* On "unlimited" telecom plans, grants you truely unlimited data for hotspots.
-- Use within reason. Try not to use over a TB (1000GB) of data in a month.
-. *+* Bypases various types of throttling, such as limited video quality on YouTube or other streaming services.
+- Use within reason. Try not to use over two TBs (2000GB) of data in a month.
+. *+* Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
 
 == 1. Preparation
 
-.*Android*
+CAUTION: Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".
+
+Jailbreak your iOS or iPadOS device if you haven't already, using https://ios.cfw.guide/get-started[this guide].
+
+.Rooted/jailbroken *Android*
 [%collapsible]
 ====
-
-CAUTION: *Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".*
-
-. Unlock the bootloader; https://www.youtube.com/watch?v=4VBv7vCXKd8[video tutorial for the Google Pixel devices].
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
 
@@ -36,60 +36,6 @@ CAUTION: *Some OSes block Android snitching by default, such as https://graphene
 . Reboot.
 
 ====
-
-.!!WIP / NOT USABLE!! *iOS and iPadOS*; for the non-jailbroken, but with slower network speeds
-[%collapsible]
-====
-
-. Install iSH and LocalSend.
-- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
-
-. Open iSH, then run: `apk update; apk upgrade; apk add openssl stunnel; mkdir -p /run/stunnel; openssl genrsa -out RootCAKey.pem 2048; openssl req -x509 -sha256 -new -nodes -key RootCAKey.pem -days 3650 -out RootCACert.pem; chmod 600 RootCAKey.pem`
-
-- When prompted for a Country Name, keep pressing kbd:[Return] until completed.
-
-. Run this command to setup stunnel:
-```
-echo -n "
-cert = /root/RootCACert.pem
-key = /root/RootCAKey.pem
-
-# stunnel's SOCKS5 is encapsulated in TCP; act closer to UDP with TCP_NODELAY=1.
-socket = l:TCP_NODELAY=1
-socket = r:TCP_NODELAY=1
-
-# If stunnel works, set to: no
-foreground = yes
-
-# Expect that DNS resolving won't be immediate, due to mobile internet drop-outs.
-delay = yes
-
-[hotspot server]
-accept = localhost:4540
-protocol = socks
-PSKsecrets = /root/psk.txt
-" > /etc/stunnel/stunnel.conf
-```
-
-.macOS
-. `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
-. Open Keychain Access.
-. Drag the Root CA certificate into Keychain Access, and fully trust it.
-
-```
-foreground = yes
-pid = /tmp/stunnel4.pid
-client = yes
-debug = 6
-
-[hotspot client]
-client = yes
-accept = localhost:9080
-connect = 192.168.2.2:4540
-PSKsecrets = psk.txt
-```
-====
-
 
 == 2. Moving past throttling
 
@@ -183,7 +129,7 @@ iptables -t mangle -D POSTROUTING -o usb+ -j TTL --ttl-inc 2
 ip6tables -t mangle -D PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
 ip6tables -t mangle -D POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
-# TTL & HL hotspot detection bypass.
+# Move past TTL & HL hotspot detections.
 ## Increments the TTL & HL by 2 (1 for the router, 1 for the devices connected to the router).
 iptables -t mangle -A PREROUTING -i usb+ -j TTL --ttl-inc 2
 iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
@@ -212,7 +158,7 @@ iptables -t mangle -D POSTROUTING -o usb+ -j TTL --ttl-inc 2
 ip6tables -t mangle -D PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
 ip6tables -t mangle -D POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
-# TTL & HL hotspot detection bypass.
+# Move past TTL & HL hotspot detections.
 ## Increments the TTL & HL by 2 (1 for the router, 1 for the devices connected to the router).
 iptables -t mangle -A PREROUTING -i usb+ -j TTL --ttl-inc 2
 iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
@@ -259,10 +205,10 @@ TIP: *Android* -> Only if you have high ping or ping spiking issues: try disabli
 . https://archive.org/download/p173_20220313/p173.pdf
 . https://archive.org/download/technology-showcase-policy-control-for-connected-and-tethered-devices/technology-showcase-policy-control-for-connected-and-tethered-devices.pdf
 . https://archive.org/download/geneva_ccs19/geneva_ccs19.pdf
-. Random XDA forums posts and threads to accumulate personal experiences with hotspot throttling or blocking bypass attempts.
 . https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/
 . https://github.com/NikolaiT/zardaxt
 . https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/
+. Showed that moving past the hotspot clasification on non-jailbroken iOS and iPadOS devcies is possible, via ad-hoc Wi-Fi on the client, and a proxy server on the iOS/iPadOS device: https://blog.cyrusroshan.com/post/phone-data-hotspot
 
 [.lead]
 Third-party scripts
