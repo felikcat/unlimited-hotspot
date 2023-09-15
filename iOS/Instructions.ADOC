@@ -1,14 +1,23 @@
-CAUTION: Neither of these are fully functional, they are most of the way there.
+:experimental:
+:imagesdir: ../Pictures/
+ifdef::env-github[]
+:icons:
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+endif::[]
 
 .Non-jailbroken *iOS and iPadOS*; SSH method. WORKS BUT INCOMPLETE!
 [%collapsible]
 ====
 *The client has to make its own hotspot for the iOS/iPadOS device to connect to. Here's the instructions for each OS:*
 
+WARNING: The macOS instructions rely on deprecated functions of the OS, and are unreliable. If you're willing, you'd have a nicer time on Asahi Linux (for M1 or newer "arm64" Macs). https://www.youtube.com/watch?v=1iiFhhOkv14[Here's a tutorial video.]
 .macOS
-. Make sure you don't have any Filters & Proxies already inside "Settings -> Network".
 . Open Terminal.
-. `ssh-keygen -t ed25519`
+. `ssh-keygen -t ed25519; chmod -R 700 $HOME/.ssh`
 - When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
 
 . `cat ~/.ssh/id_ed25519.pub | base64 | base64 -d > ~/publickey.txt | pbcopy`
@@ -16,11 +25,32 @@ CAUTION: Neither of these are fully functional, they are most of the way there.
 
 . On the iPhone or iPad: `nano ~/.ssh/authorized_keys`, then paste the clipboard, and save the file. 
 
-. `chmod -R 700 /Users/admin/.ssh`
+. `sudo -- zsh -c "networksetup -createnetworkservice Loopback lo0; networksetup -setmanual Loopback 127.0.0.1 255.255.255.255; networksetup -createnetworkservice AdHoc lo0; networksetup -setdhcp AdHoc"`
 
 . `pip3 install rsp`
 
-.Linux
+. Open *Settings*.
+. Make sure to disable all Filters & Proxies already inside of "Network". +
+image:settings_network_1.png[]
+
+. image:settings_network_2.png[]
+
+. Move Loopback to the bottom, and put AdHoc right above Loopback. +
+image:settings_service_order.png[]
+
+. Click the (i) icon for Internet Sharing. +
+image:settings_sharing.png[]
+
+. Copy these settings, then click "Wi-Fi Options..." and allow the permissions when prompted. +
+image:settings_internet_sharing.png[] 
+
+image:macos_hotspot_config.png[]
+
+.Now turn on Internet Sharing every single time you want to use your iOS/iPadOS hotspot.
+* Ensure that this icon shows up, if it doesn't, disable Wi-Fi then enable Internet Sharing: +
+image:macos_hotspot_icon.png[]
+
+.Linux -> GNOME and NetworkManager
 . Replace wpa_supplicant (Ubuntu and Fedora both use it) with iwd, otherwise the iOS/iPadOS device cannot connect to the Linux hotspot.
 
 . `ssh-keygen -t ed25519`

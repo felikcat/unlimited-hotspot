@@ -11,8 +11,10 @@ endif::[]
 
 == About
 [.lead]
-This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, and sshuttle tunneling:
+This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
+. *+* Supports hotspots from iOS, iPadOS, and Android.
+. *+* Jailbreaking or rooting is not required.
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
 . *+* On "unlimited" telecom plans, grants you truely unlimited data for hotspots.
