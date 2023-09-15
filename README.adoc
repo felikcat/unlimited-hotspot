@@ -23,8 +23,6 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 
 CAUTION: Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".
 
-Jailbreak your iOS or iPadOS device if you haven't already, using https://ios.cfw.guide/get-started[this guide].
-
 .Rooted/jailbroken *Android*
 [%collapsible]
 ====
