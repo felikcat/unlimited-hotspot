@@ -3,7 +3,9 @@ set -eu
 
 apk update
 apk upgrade
-apk add openssh
+apk add openssh python3
+# sshuttle expects the 'python' command.
+ln -sf /usr/bin/python3 /usr/bin/python
 ssh-keygen -t ed25519
 mv ~/.ssh/id_ed25519 /etc/ssh/ssh_host_ed25519_key
 cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys

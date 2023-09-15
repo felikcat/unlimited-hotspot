@@ -23,6 +23,14 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 
 CAUTION: Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".
 
+.iOS and iPadOS
+[%collapsible]
+====
+See iOS/Instructions.ADOC for the SSH method if you're willing to experiment. Right now, I don't consider it thorough enough to include here, as essential parts on the client-side (for both macOS and Linux) aren't there.
+
+====
+
+
 .Rooted/jailbroken *Android*
 [%collapsible]
 ====
