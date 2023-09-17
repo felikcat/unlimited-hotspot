@@ -22,13 +22,22 @@ key = /root/RootCAKey.pem
 socket = l:TCP_NODELAY=1
 socket = r:TCP_NODELAY=1
 
+# Prefer weaker cryptography strength, since we're CPU limited.
+fips = no
+
 foreground = yes
 
 # Due to mobile internet drop-outs, anticipate non-immediate DNS resolving.
 delay = yes
 
-[hotspot server]
-PSKsecrets = /root/psk.txt
-accept = :::9080
+[SOCKS Client Direct]
+accept = :::9050
+
+[SOCKS Client Transparent IPv4]
+accept = 127.0.0.1:9051
+protocol = socks
+
+[SOCKS Client Transparent IPv6]
+accept = ::1:9051
 protocol = socks
 " > /etc/stunnel/stunnel.conf

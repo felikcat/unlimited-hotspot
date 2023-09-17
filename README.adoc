@@ -14,9 +14,7 @@ endif::[]
 This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
 . *+* Supports hotspots from *Android*, and soon *Quectel* modems.
-- There is a lot of progress on methods for *iOS* and *iPadOS*, however they are frustratingly over-complex to handle. +
-If you think you can handle the undocumented parts, look in iOS/Instructions.adoc for instructions on iOS and iPadOS hotspots.
-*** The SSH method should be easier to get working than the SSL method, but is slower.
+- There is methods for unjailbroken *iOS* and *iPadOS*, however they are frustratingly over-complex to handle. If you think you can handle this, look at iOS/instructions.adoc.
 . *+* Jailbreaking or rooting is not required.
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
