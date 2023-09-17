@@ -1,17 +1,19 @@
-#!/bin/bash
-set -eu
+#!/bin/sh
 
 apk update
 apk upgrade
 apk add openssh python3
 # sshuttle expects the 'python' command.
 ln -sf /usr/bin/python3 /usr/bin/python
+
 ssh-keygen -t ed25519
 mv ~/.ssh/id_ed25519 /etc/ssh/ssh_host_ed25519_key
 cat ~/.ssh/id_ed25519.pub >> ~/.ssh/authorized_keys
+
 chmod 700 -R ~/.ssh
 chmod 600 ~/.ssh/authorized_keys
 cp ~/.ssh/id_ed25519.pub ~/client.pub
+
 # Grant permissions for 'root' to be used for sshd.
 sed -i s/root:!/"root:*"/g /etc/shadow
 

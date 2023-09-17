@@ -14,9 +14,7 @@ endif::[]
 ====
 *The client has to make its own hotspot for the iOS/iPadOS device to connect to. Here's the instructions for each OS:*
 
-WARNING: The macOS instructions rely on deprecated functions of the OS, and are unreliable. If you're willing, you'd have a nicer time on Asahi Linux (for M1 or newer "arm64" Macs). https://www.youtube.com/watch?v=1iiFhhOkv14[Here's a tutorial video.]
-
-.macOS
+.macOS client
 . Open Terminal.
 . `ssh-keygen -t ed25519; chmod -R 700 $HOME/.ssh`
 - When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
@@ -26,12 +24,10 @@ WARNING: The macOS instructions rely on deprecated functions of the OS, and are 
 
 . On the iPhone or iPad: `nano ~/.ssh/authorized_keys`, then paste the clipboard, and save the file. 
 
-. `sudo -- zsh -c "networksetup -createnetworkservice Loopback lo0; networksetup -setmanual Loopback 127.0.0.1 255.255.255.255; networksetup -createnetworkservice AdHoc lo0; networksetup -setdhcp AdHoc"`
-
-. `pip3 install rsp`
+. `sudo -- zsh -c "networksetup -createnetworkservice Loopback lo0; networksetup -setmanual Loopback 127.0.0.1 255.255.255.255; networksetup -createnetworkservice AdHoc lo0; networksetup -setmanual AdHoc 10.0.4.1 255.255.255.0; pfctl -e"`
 
 . Open *Settings*.
-. Make sure to disable all Filters & Proxies already inside of "Network". +
+. Make sure to disable all Filters & Proxies already inside of Network -> VPN. +
 image:settings_network_1.png[]
 
 . image:settings_network_2.png[]
@@ -51,7 +47,9 @@ image:macos_hotspot_config.png[]
 * Ensure that this icon shows up, if it doesn't, disable Wi-Fi then enable Internet Sharing: +
 image:macos_hotspot_icon.png[]
 
-.Linux -> GNOME and NetworkManager
+NOTE: macOS' Internet Sharing is bugged in Ventura and Sonoma. If it refuses to activate, you have to reboot your Mac.
+
+.Linux client -> GNOME and NetworkManager
 . Replace wpa_supplicant (Ubuntu and Fedora both use it) with iwd, otherwise the iOS/iPadOS device cannot connect to the Linux hotspot.
 
 . `ssh-keygen -t ed25519`
@@ -60,13 +58,13 @@ image:macos_hotspot_icon.png[]
 . `cat ~/.ssh/id_ed25519.pub | base64 | base64 -d > ~/publickey.txt | pbcopy`
 
 
-.Now, back to the iOS or iPadOS device.
+.Now, back to the iOS or iPadOS server.
 . Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
 - LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
 
 . Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
 
-. Open iSH, then run `iOS/install_ssh.sh`
+. Open iSH, then run `sh install_ssh.sh`
 - When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
 
 .Now connect to the Wi-Fi hotspot made on your client, and ensure mobile data is used through the following steps:
@@ -74,36 +72,28 @@ image:macos_hotspot_icon.png[]
 . Tap and hold on the Wi-Fi icon, then enable *Personal Hotspot*.
 . You can `ping goo.gl` inside *iSH* to see if the mobile data is functional.
 
-.If that method doesn't work, try the following:
-. Open *Settings*, go to Wi-Fi.
-. Press the Info (i) icon for the Wi-Fi hotspot.
-. Note the IP Address and Subnet Mask, remember these both, it is important.
-. Configure IP -> Change to "Manual", then put in the same IP Address and Subnet Mask, but leave Router empty, then save.
-NOTE: Every single time you reconnect to this Wi-Fi hotspot, you must set it back to "Automatic" to get back on the Wi-Fi, then change to "Manual" to make the Mobile Data work.
-
 .Run the SSH tunnel on the iOS/iPadOS device:
 . `/usr/sbin/sshd -d`
 - After done testing, remove -d (debug mode), as it'll close `sshd` everytime a client disconnects.
 
-.MISSING INFORMATION ON SETTING UP THE PROXY FOR MACOS, LINUX, AND WINDOWS HERE!
--
-
 ====
 
 
-.Non-jailbroken *iOS and iPadOS*; SSL method. CURRENTLY BROKEN.
+.*iOS and iPadOS*.
 [%collapsible]
 ====
 
+.iOS or iPadOS server
 . Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
 - LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
 
 . Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
 
-. Open iSH, then run: `iOS/install_ssl`
+. Open iSH, then run: `sh install_ssl.sh`
 - When prompted for a Country Name, keep pressing kbd:[Return] until completed.
 
-.macOS
+.macOS client
+. `brew install stunnel`
 . `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
 . Open Keychain Access.
 . Drag the Root CA certificate into Keychain Access, and fully trust it.

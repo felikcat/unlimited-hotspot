@@ -13,7 +13,10 @@ endif::[]
 [.lead]
 This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
-. *+* Supports hotspots from iOS, iPadOS, and Android.
+. *+* Supports hotspots from *Android*, and soon *Quectel* modems.
+- There is a lot of progress on methods for *iOS* and *iPadOS*, however they are frustratingly over-complex to handle. +
+If you think you can handle the undocumented parts, look in iOS/Instructions.adoc for instructions on iOS and iPadOS hotspots.
+*** The SSH method should be easier to get working than the SSL method, but is slower.
 . *+* Jailbreaking or rooting is not required.
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
@@ -61,8 +64,6 @@ See iOS/Instructions.ADOC for the SSH method if you're willing to experiment. Ri
 .macOS
 [%collapsible]
 ====
-NOTE: Tested on Ventura 13.5.2.
-
 . Open Unlimited Hotspot's "macOS" folder in *Finder*.
 . Open *Terminal*.
 
