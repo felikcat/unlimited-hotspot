@@ -64,7 +64,8 @@ xref:iOS/Instructions.ADOC[See here] for the SSL method if you're willing to exp
 .macOS
 [%collapsible]
 ====
-. Open Unlimited Hotspot's "macOS" folder in *Finder*.
+. https://github.com/felikcat/unlimited-hotspot/archive/refs/heads/main.zip[Download Unlimited Hotspot], then open `unlimited-hotspot-main.zip` in *Finder* to extract it.
+. After extracted, open the "unlimited-hotspot-main" folder, then open its "macOS" folder.
 . Open *Terminal*.
 
 . Type `sudo -i`, enter your login password, then press kbd:[Enter].
@@ -149,7 +150,8 @@ Now, set permissions correctly to avoid this error: `custom_script: Found wan-ev
 `# chmod a+rx /jffs/scripts/*` +
 `# reboot`
 
-___
+'''
+
 ====
 
 
@@ -175,18 +177,21 @@ ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
 ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 ----
 
-___
+'''
+
 ====
 
-== Quectel
+=== Quectel modems
 
+[%collapsible]
+====
 CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
 It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
 
 You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability.
 
 `AT+EGMR=1,7,"The IMEI here"`
-
+====
 
 == 3. Confirm the hotspot is un-throttled
 TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
