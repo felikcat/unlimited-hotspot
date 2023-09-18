@@ -56,7 +56,7 @@ NOTE: For every macOS device you use, you'd have to install SpoofDPI on each. Sa
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], zapret also works -- with crashing issues on macOS Ventura 13.5.2.
+* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
 
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
 * Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
