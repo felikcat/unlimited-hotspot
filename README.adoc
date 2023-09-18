@@ -209,7 +209,7 @@ It is also illegal in the United States to spoof to an IMEI of a device that is 
 
 == 3. Using dnscrypt2 to get past webpage blocks
 
-Installation instructions for https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[other OSes] such as Windows, Linux, etc.
+https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[Installation instructions for other OSes], such as Windows, Linux, etc.
 
 .macOS
 [%collapsible]
@@ -234,7 +234,6 @@ image:settings_dnscrypt_2.png[]
 ====
 
 == 4. Confirm the hotspot is un-throttled
-TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
 
 * Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
 - This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and hotspot detections.
@@ -242,6 +241,10 @@ TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to rest
 
 
 == 5. Improving internet speeds
+
+.For Android: Enable Data Saver
+* This only works via USB, as it will block wireless hotspots.
+- Context: Data saver tells Android to restrict data to only the USB hotspot and which app is at the forefront.
 
 .Disable roaming
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
