@@ -50,7 +50,9 @@ xref:iOS/Instructions.ADOC[See here] for the SSL method if you're willing to exp
 
 == 2. Moving past throttling
 
-.Install the following program, specific to each OS:
+NOTE: For every macOS device you use, you'd have to install SpoofDPI on each. Same applies for Android devices via installing PowerTunnel, and so on for other OSes.
+
+.Install anti-DPI applications, specific to each OS:
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
@@ -58,7 +60,7 @@ xref:iOS/Instructions.ADOC[See here] for the SSL method if you're willing to exp
 
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
 * Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
-* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; while a lazy choice, it's better than nothing. Expect a better solution later on.
+* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs work too, but be sure to use a reptuable one that utilizes WireGuard.
 
 === Additional required steps
 .macOS
