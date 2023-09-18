@@ -9,7 +9,13 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-Read the SSH method first. The SSL method should be faster than the SSH one.
+.Notices
+. The iOS or iPadOS device must always have its screen on during the hotspot, with only the iSH app open.
+
+. This requires a lot of setup for each client. It is not plug and play.
+
+. You will have slower internet, but the SSL method should be the faster alternative.
+
 
 .*iOS and iPadOS*; SSH method.
 [%collapsible]

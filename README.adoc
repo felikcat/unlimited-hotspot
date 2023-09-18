@@ -13,23 +13,25 @@ endif::[]
 [.lead]
 This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
-. *+* Supports hotspots from *Android*, and soon *Quectel* modems.
-- There is methods for unjailbroken *iOS* and *iPadOS*, however they are frustratingly over-complex to handle. If you think you can handle this, look at iOS/instructions.adoc.
+. *+* Supports hotspots from *Android* phones & tablets, and *Quectel* modems.
+- There is methods for unjailbroken *iOS* and *iPadOS*, however they are frustrating to handle.
 . *+* Jailbreaking or rooting is not required.
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
-. *+* On "unlimited" telecom plans, grants you truely unlimited data for hotspots.
+. *+* On "unlimited" telecom plans, grants you unlimited data for hotspots.
 - Use within reason. Try not to use over two TBs (2000GB) of data in a month.
 . *+* Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
 
 == 1. Preparation
 
-CAUTION: Some OSes block Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. If so, please skip to "2. Moving past throttling".
+. If you use an OS that blocks Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. Skip to "2. Moving past throttling".
+
+. Quectel modems: Skip to "2. Moving past throttling".
 
 .iOS and iPadOS
 [%collapsible]
 ====
-See iOS/Instructions.ADOC for the SSH method if you're willing to experiment. Right now, I don't consider it thorough enough to include here, as essential parts on the client-side (for both macOS and Linux) aren't there.
+xref:iOS/Instructions.ADOC[See here] for the SSL method if you're willing to experiment. Contributions here would be greatly appreciated, as I can't anticipate every OS configuration and general setup, which is a requirement for these SSL and SSH methods.
 
 ====
 
@@ -81,7 +83,7 @@ image:pf_rules.png[]
 ====
 
 === Routers
-If the hotspot device is plugged into a router, likely through USB, additional steps are required:
+For Quectel modems, or if the hotspot device is plugged into a router, then these steps are required:
 
 .Asuswrt-Merlin
 [%collapsible]
@@ -175,6 +177,16 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
 ___
 ====
+
+== Quectel
+
+CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
+It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
+
+You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability.
+
+`AT+EGMR=1,7,"The IMEI here"`
+
 
 == 3. Confirm the hotspot is un-throttled
 TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
