@@ -56,10 +56,23 @@ NOTE: For every macOS device you use, you'd have to install SpoofDPI on each. Sa
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+* macOS and Linux: https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel], https://github.com/xvzc/SpoofDPI#curl[SpoofDPI], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+
+.How to use PowerTunnel on macOS
+[%collapsible]
+====
+
+. Make sure the https://github.com/krlvm/PowerTunnel/releases[latest PowerTunnel.jar] is downloaded.
+
+. Download the https://adoptium.net/download/[Adoptium installer] and open it.
+
+. After you got done installing Adoptium "Temurin", in *Finder*, kbd:[Left Option] + kbd:[Right Click] PowerTunnel.jar then click "Open". +
+image:kbmagic.jpeg[]
+
+====
 
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
-* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android].
+* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android]; run it in VPN mode.
 * iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs work too, but be sure to use a reptuable one that utilizes WireGuard.
 
 === Additional required steps
@@ -190,12 +203,37 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
 It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
 
-You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability.
-
-`AT+EGMR=1,7,"The IMEI here"`
+.You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
+* `AT+EGMR=1,7,"The IMEI here"`
 ====
 
-== 3. Confirm the hotspot is un-throttled
+== 3. Using dnscrypt2 to get past webpage blocks
+
+Installation instructions for https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[other OSes] such as Windows, Linux, etc.
+
+.macOS
+[%collapsible]
+====
+. Go to https://ipleak.net/[AirVPN's IP Leak] to see your current DNS servers. Save a screenshot of this page.
+
+. https://brew.sh/[Install Homebrew] if you haven't already.
+
+. `brew install dnscrypt-proxy`
+
+. Be sure to read the information Brew gives you after it's done installing dnscrypt-proxy.
+- It is recommended to install dnscrypt-proxy's service.
+
+. Open *Settings*, go to Network, then click on the Network interface you are currently using; for me, that is "USB 10/100/1G/2.5G LAN".
+. Click "Details..." +
+image:settings_dnscrypt.png[]
+. Go to DNS, press the Plus (+) button under "DNS Servers", then type in `127.0.0.1` +
+image:settings_dnscrypt_2.png[]
+
+. Go back to https://ipleak.net/[AirVPN's IP Leak] to see if the changes to your DNS servers is successful; compare it to your prior screenshot.
+
+====
+
+== 4. Confirm the hotspot is un-throttled
 TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to restrict data to USB hotspot and what app is at the forefront only.
 
 * Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
@@ -203,7 +241,7 @@ TIP: After enabling USB hotspot, enable "Data Saver". This tells Android to rest
 
 
 
-== 4. Improving internet speeds
+== 5. Improving internet speeds
 
 .Disable roaming
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
