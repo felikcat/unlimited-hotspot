@@ -69,6 +69,8 @@ NOTE: For every macOS device you use, you'd have to install SpoofDPI on each. Sa
 . After you got done installing Adoptium "Temurin", in *Finder*, kbd:[Left Option] + kbd:[Right Click] PowerTunnel.jar then click "Open". +
 image:kbmagic.jpeg[]
 
+. image:settings_powertunnel.png[]
+
 ====
 
 * Windows: https://github.com/macronut/ghostcp[GhosTCP].
