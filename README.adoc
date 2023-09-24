@@ -13,13 +13,12 @@ endif::[]
 [.lead]
 This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
-. *+* Supports hotspots from *Android* phones & tablets, and *Quectel* modems.
-- There is methods for unjailbroken *iOS* and *iPadOS*, however they are frustrating to handle.
-. *+* Jailbreaking or rooting is not required.
+. *+* Supports hotspots from *Android* phones & tablets, *iOS*, *iPadOS*, and *Quectel* modems.
+. *+* Absolute maximum performance with disregard for a wide range of OS support.
+- Expection: jailbreaking or rooting is not required.
 . *+* Fully open-source and free of charge.
 . *+* Better reliablity and internet speeds.
 . *+* On "unlimited" telecom plans, grants you unlimited data for hotspots.
-- Use within reason. Try not to use over two TBs (2000GB) of data in a month.
 . *+* Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
 
 == 1. Preparation

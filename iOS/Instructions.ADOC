@@ -9,29 +9,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
-.Notices
-. The iOS or iPadOS device must always have its screen on during the hotspot, with only the iSH app open.
-
-. This requires a lot of setup for each client. It is not plug and play.
-
-. You will have slower internet, but the SSL method should be the faster alternative.
-
-
-.*iOS and iPadOS*; SSH method.
-[%collapsible]
-====
-*The client has to make its own hotspot for the iOS/iPadOS device to connect to. Here's the instructions for each OS:*
+== 1. The client needs its own hotspot for iOS/iPadOS to connect to; here's the instructions for each OS:
 
 .*macOS client*
-. Open Terminal.
-. `ssh-keygen -t ed25519; chmod -R 700 $HOME/.ssh`
-- When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
-
-. `cat ~/.ssh/id_ed25519.pub | base64 | base64 -d > ~/publickey.txt | pbcopy`
-- This will copy the result to the clipboard; the clipboard is synced between Apple devices.
-
-. On the iPhone or iPad: `nano ~/.ssh/authorized_keys`, then paste the clipboard, and save the file. 
-
 . `sudo -- zsh -c "networksetup -createnetworkservice Loopback lo0; networksetup -setmanual Loopback 127.0.0.1 255.255.255.255; networksetup -createnetworkservice AdHoc lo0; networksetup -setmanual AdHoc 10.0.4.1 255.255.255.0; pfctl -e"`
 
 . Open *Settings*.
@@ -49,28 +29,27 @@ image:settings_sharing.png[]
 . Copy these settings, then click "Wi-Fi Options..." and allow the permissions when prompted. +
 image:settings_internet_sharing.png[] 
 
+. Use Channel 36 for faster internet speeds: + 
 image:macos_hotspot_config.png[]
 
 .*Now turn on Internet Sharing every single time you want to use your iOS/iPadOS hotspot.*
 * Ensure that this icon shows up, if it doesn't, disable Wi-Fi and AirDrop then enable Internet Sharing: +
 image:macos_hotspot_icon.png[]
 
-.*Linux client -> GNOME and NetworkManager*
-. Replace wpa_supplicant (Ubuntu and Fedora both use it) with iwd, otherwise the iOS/iPadOS device cannot connect to the Linux hotspot.
-
-. `ssh-keygen -t ed25519`
-- When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
-
-. `cat ~/.ssh/id_ed25519.pub | base64 | base64 -d > ~/publickey.txt | pbcopy`
+.*Linux client*
+. Replace wpa_supplicant with iwd, otherwise the iOS/iPadOS device cannot connect to the Linux hotspot.
 
 
 .*Back to the iOS or iPadOS server.*
-. Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
-- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
+. https://github.com/felikcat/unlimited-hotspot/archive/refs/heads/main.zip[Download Unlimited Hotspot], then open `unlimited-hotspot-main.zip` in *Files* to extract it.
 
-. Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
+. After extracted, open the "unlimited-hotspot-main" folder, then open its "iOS" folder. 
 
-. Open iSH, then run `sh install_ssh.sh`
+. Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH].
+
+. Open Files, move the `install_ssl.sh` file to iSH's `/root` directory using the *Files* app.
+
+. Open iSH, then run: `sh install_ssl.sh`
 - When prompted for a "file in which to save the key", keep pressing kbd:[Return] until completed.
 
 . Now connect to the Wi-Fi hotspot made on your client, and ensure mobile data is used through the following steps:
@@ -80,53 +59,25 @@ image:macos_hotspot_icon.png[]
 . Configure IP -> Change to "Manual", then put in the same IP Address and Subnet Mask, but leave Router empty, then save.
 NOTE: Every single time you reconnect to this Wi-Fi hotspot, you must set it back to "Automatic" to get back on the Wi-Fi, then change to "Manual" to make the Mobile Data work.
 
-. Run the SSH tunnel on the iOS/iPadOS device:
-. `/usr/sbin/sshd -d`
-- After done testing, remove -d (debug mode), as it'll close `sshd` everytime a client disconnects.
+. Run the SSH tunnel on the iOS/iPadOS device: +
+`stunnel`
 
 .*Back to the macOS client.*
-- `pip3 install --upgrade pip; pip3 install rsp`
 
-TIP: If you get a warning that Python is not added to the path, do similar to the following: +
-Open `~/.zprofile` +
-Add: `export PATH=$PATH:~/Library/Python/3.9/bin` +
-Then "refresh" the current Terminal: `source .zprofile`
+. https://github.com/felikcat/unlimited-hotspot/archive/refs/heads/main.zip[Download Unlimited Hotspot], then open `unlimited-hotspot-main.zip` in *Finder* to extract it.
 
-- `rsp-trust '192.168.2.2' 4318`
-- `rsp -L root '192.168.2.2' 4318`
-
-====
-
-
-.*iOS and iPadOS*; SSL method.
-[%collapsible]
-====
-
-.iOS or iPadOS server
-. Install https://apps.apple.com/us/app/ish-shell/id1436902243[iSH] and https://apps.apple.com/us/app/localsend/id1661733229[LocalSend].
-- LocalSend is so you can send files to macOS or other OSes; AirDrop will not work on macOS while hosting Wi-Fi.
-
-. Install https://localsend.org/#/download[LocalSend] onto the device you are sharing a hotspot to.
-
-. Open iSH, then run: `sh install_ssl.sh`
-- When prompted for a Country Name, keep pressing kbd:[Return] until completed.
-
-.macOS client
+. After extracted, open the "unlimited-hotspot-main" folder, then open its "macOS" folder.
+. Open *Terminal*.
 . `brew install stunnel`
+
 . `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
 . Open Keychain Access.
 . Drag the Root CA certificate into Keychain Access, and fully trust it.
 
-```
-foreground = yes
-pid = /tmp/stunnel4.pid
-client = yes
-debug = 6
+. Type `cp` then drag the `stunnel.conf` file in, press kbd:[Space], type in `/opt/homebrew/etc/stunnel` and press kbd:[Enter].
 
-[hotspot client]
-client = yes
-accept = localhost:9080
-connect = 192.168.2.2:4540
-PSKsecrets = psk.txt
-```
-====
+== Warnings
+. The iOS or iPadOS device must always have its screen on during the hotspot, with only the iSH app open.
+- You cannot switch away from the iSH app while using the hotspot.
+
+. You will have slower internet, but it should be minimal.
