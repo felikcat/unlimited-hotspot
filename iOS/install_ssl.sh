@@ -11,8 +11,8 @@ chmod 600 ~/RootCAKey.pem
 chmod 600 ~/RootCACert.pem
 
 PSK=$(base64 < /dev/urandom | tr -d 'O0Il1+/' | head -c 44)
-echo "user:${PSK}" > ~/psk.txt
-chmod 600 ~/psk.txt
+echo "user:${PSK}" > ~/secrets.txt
+chmod 600 ~/secrets.txt
 
 echo -n "
 cert = /root/RootCACert.pem
@@ -30,14 +30,8 @@ foreground = yes
 # Due to mobile internet drop-outs, anticipate non-immediate DNS resolving.
 delay = yes
 
-[SOCKS Client Direct]
-accept = :::9050
-
-[SOCKS Client Transparent IPv4]
-accept = 127.0.0.1:9051
-protocol = socks
-
-[SOCKS Client Transparent IPv6]
-accept = ::1:9051
+[SOCKS Server]
+PSKsecrets = /root/secrets.txt
+accept = :::9080
 protocol = socks
 " > /etc/stunnel/stunnel.conf

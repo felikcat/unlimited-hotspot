@@ -9,6 +9,8 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+WARNING: These instructions are incomplete, and I'm not willing to go further.
+
 == 1. The client needs its own hotspot for iOS/iPadOS to connect to; here's the instructions for each OS:
 
 .*macOS client*
@@ -22,6 +24,8 @@ image:settings_network_1.png[]
 
 . Move Loopback to the bottom, and put AdHoc right above Loopback. +
 image:settings_service_order.png[]
+
+. Turn on your Wi-Fi, then unplug your iPhone or iPad from the Mac before proceeding.
 
 . Click the (i) icon for Internet Sharing. +
 image:settings_sharing.png[]
@@ -70,11 +74,11 @@ NOTE: Every single time you reconnect to this Wi-Fi hotspot, you must set it bac
 . Open *Terminal*.
 . `brew install stunnel`
 
-. `openssl s_client -showcerts -servername server -connect 192.168.2.2:9080 > RootCACert.pem`
+. `openssl s_client -showcerts -servername server -connect 192.168.2.66:9080 > RootCACert.pem`
 . Open Keychain Access.
 . Drag the Root CA certificate into Keychain Access, and fully trust it.
 
-. Type `cp` then drag the `stunnel.conf` file in, press kbd:[Space], type in `/opt/homebrew/etc/stunnel` and press kbd:[Enter].
+. INCOMPLETE INSTRUCTIONS END HERE.
 
 == Warnings
 . The iOS or iPadOS device must always have its screen on during the hotspot, with only the iSH app open.
