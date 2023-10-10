@@ -30,7 +30,10 @@ This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router,
 .iOS and iPadOS
 [%collapsible]
 ====
-xref:iOS/Instructions.ADOC[See here] for the SSL method if you're willing to experiment. Contributions here would be greatly appreciated, as I can't anticipate every OS configuration and general setup, which is a requirement for these SSL and SSH methods.
+. https://pairvpn.com/install[Install PairVPN] from the App Store and on the clients (such as a Windows laptop).
+. Connect the client to your iOS/iPadOS device via its "Mobile Hotspot" or through USB tethering.
+. Run PairVPN as a server on the iOS/iPadOS device, then use the PairVPN client on devices that connect to that server.
+- For as long as PairVPN is used, there won't be hotspot data usage.
 
 ====
 
@@ -288,8 +291,5 @@ Third-party scripts
 *You've reached the end of this guide.* Star it if you liked it.
 
 '''
-
-Tip me if you want more pre-paid United States telecoms tested, such as AT&T, Verizon, and third-party MVNOs using say AT&T's network like Cricket Wireless. As of Sep 10 2023: I've only tested with a Magenta T-Mobile plan, with me maxing out its hotspot data out.
-
-Scan this image, or click on it to tip me on Ko-fi: +
+Tipping is appreciated: +
 image:kofi_qrcode.png[width=160,height=160,link="https://ko-fi.com/felikcat"]
