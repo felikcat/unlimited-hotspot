@@ -77,6 +77,12 @@ image:kbmagic.jpeg[]
 * iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs work too, but be sure to use a reptuable one that utilizes WireGuard.
 
 === Additional required steps
+
+.On AT&T / Cricket Wireless, HTTPS "packet chunking" is required to bypass throttling.
+. image:PowerTunnel1.png[480,360]
+. Use a low chunk size, such as "1": + 
+image:PowerTunnel2.png[480,360]
+
 .macOS
 [%collapsible]
 ====
