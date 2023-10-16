@@ -13,32 +13,58 @@ endif::[]
 [.lead]
 This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
-. *+* Supports hotspots from *Android* phones & tablets, *iOS*, *iPadOS*, and *Quectel* modems.
-. *+* Absolute maximum performance with disregard for a wide range of OS support.
-- Expection: jailbreaking or rooting is not required.
-. *+* Fully open-source and free of charge.
-. *+* Better reliablity and internet speeds.
-. *+* On "unlimited" telecom plans, grants you unlimited data for hotspots.
-. *+* Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
+. Supports hotspots from *Android* phones & tablets, *iOS*, *iPadOS*, and *Quectel* modems.
+. Methods used are all high performance and reliability, unlike SSH tunneling.
+. Fully open-source and free of charge.
+. On "unlimited" telecom plans, grants you unlimited data for hotspots.
+. Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
+
+NOTE: Follow the entire guide, top to bottom.
 
 == 1. Preparation
 
-. If you use an OS that blocks Android snitching by default, such as https://grapheneos.org/[GrapheneOS]. Skip to "2. Moving past throttling".
-
-. Quectel modems: Skip to "2. Moving past throttling".
-
-.iOS and iPadOS
+.Quectel modems
 [%collapsible]
 ====
-. https://pairvpn.com/install[Install PairVPN] from the App Store and on the clients (such as a Windows laptop).
+
+CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
+It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
+
+.You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
+* `AT+EGMR=1,7,"The IMEI here"`
+
+====
+
+.Non-jailbroken *iOS* and *iPadOS*
+[%collapsible]
+====
+. https://pairvpn.com/install[Install PairVPN] from the App Store on the iOS or iPadOS device, and on the clients (such as a Windows laptop).
+
 . Connect the client to your iOS/iPadOS device via its "Mobile Hotspot" or through USB tethering.
+
 . Run PairVPN as a server on the iOS/iPadOS device, then use the PairVPN client on devices that connect to that server.
 - For as long as PairVPN is used, there won't be hotspot data usage.
 
 ====
 
+.Non-rooted *Android*
+[%collapsible]
+====
 
-.Rooted/jailbroken *Android*
+. https://github.com/pyamsoft/tetherfi#tetherfi[Install TetherFi] on the Android device.
+
+. Open the TetherFi app.
+
+. Configure the following in the "Hotspot" tab:
+- Broadcast frequency -> 5GHz
+- Enable all: Wake Locks
+- Enable: Bind Proxy to All Interfaces
+
+. Open the "How To" tab and follow its instructions.
+
+====
+
+.Rooted *Android*
 [%collapsible]
 ====
 
@@ -206,17 +232,6 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
 ====
 
-=== Quectel modems
-
-[%collapsible]
-====
-CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
-It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
-
-.You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
-* `AT+EGMR=1,7,"The IMEI here"`
-====
-
 == 3. Using dnscrypt2 to get past webpage blocks
 
 https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[Installation instructions for other OSes], such as Windows, Linux, etc.
@@ -264,7 +279,7 @@ image:settings_dnscrypt_2.png[]
 * *iOS*: Context: T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
 image:ios_network_selection.PNG[width=281.5,height=305]
 
-.(Android with Magisk only) -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
+.*Rooted Android only* -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
@@ -297,5 +312,9 @@ Third-party scripts
 *You've reached the end of this guide.* Star it if you liked it.
 
 '''
-Tipping is appreciated: +
+
+=== Donations
+Tip the apps or programs you rely on first, such as TetherFi for non-rooted Android devices; some like PowerTunnel don't seem to take donations.
+
+Tipping is appreciated, and is used for buying access to Verizon and AT&T plans: +
 image:kofi_qrcode.png[width=160,height=160,link="https://ko-fi.com/felikcat"]
