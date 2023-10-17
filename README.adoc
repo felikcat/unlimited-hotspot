@@ -110,9 +110,14 @@ image:kbmagic.jpeg[]
 === Additional required steps
 
 .On AT&T / Cricket Wireless, HTTPS "packet chunking" (also called TCP fragmentation) is required to bypass throttling.
+[%collapsible]
+====
+
 . image:PowerTunnel1.png[480,360]
 . Use a low chunk size, such as "1": + 
 image:PowerTunnel2.png[480,360]
+
+====
 
 .If using PowerTunnel and TetherFi (for non-rooted Android).
 [%collapsible]
