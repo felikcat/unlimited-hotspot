@@ -284,17 +284,20 @@ image:settings_dnscrypt_2.png[]
 
 == 5. Improving internet speeds
 
-.For Android: Enable Data Saver
+.*Android only* -> Enable Data Saver
 * This only works via USB, as it will block wireless hotspots.
 - Context: Data saver tells Android to restrict data to only the USB hotspot and which app is at the forefront.
 
-.Disable roaming
+.*Android & iOS/iPadOS & Quectel* -> Disable roaming
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
+* *Quectel*: TODO
 
-.Switch cell tower providers specifically for problematic areas
-* *iOS*: Context: T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
+.*Android & iOS/iPadOS & Quectel* -> Switch cell tower providers specifically for problematic areas
+* *Android*: TODO
+* *iOS*: Context -> T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
 image:ios_network_selection.PNG[width=281.5,height=305]
+* *Quectel*: TODO
 
 .*Rooted Android only* -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
@@ -303,7 +306,8 @@ image:ios_network_selection.PNG[width=281.5,height=305]
 
 . If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
 
-TIP: *Android* -> Only if you have high ping or ping spiking issues: try disabling "hotspot hardware acceleration" in the Settings app.
+.*Android only* -> Disable "hotspot hardware acceleration" in the Settings app.
+- *Only if* you have high ping or ping spiking issues, otherwise don't touch it.
 
 == Appendices
 
