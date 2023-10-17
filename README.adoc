@@ -78,7 +78,9 @@ It is also illegal in the United States to spoof to an IMEI of a device that is 
 
 == 2. Moving past throttling
 
-NOTE: For every macOS device you use, you'd have to install SpoofDPI on each. Same applies for Android devices via installing PowerTunnel, and so on for other OSes.
+NOTE: This will not work for the server / hotspot device if it is a non-rooted Android device or a non-jailbroken iOS or iPadOS device; it will work on a rooted hotspot Android device. It will however work for its clients (such as a macOS laptop).
+
+TIP: For every macOS device you use, you'd have to install PowerTunnel on each. Same applies for other OSes.
 
 .Install anti-DPI applications, specific to each OS:
 
@@ -111,6 +113,16 @@ image:kbmagic.jpeg[]
 . image:PowerTunnel1.png[480,360]
 . Use a low chunk size, such as "1": + 
 image:PowerTunnel2.png[480,360]
+
+.If using PowerTunnel and TetherFi (for non-rooted Android).
+[%collapsible]
+====
+
+. Go to PowerTunnel, then click on "Options".
+. Configure the upstream proxy server to match what TetherFi says to use. For my case, it was 192.168.49.1 with port 8228 for the HTTP/HTTPS protocol.
+- image:PowerTunnel3.png[480,360]
+
+====
 
 .macOS
 [%collapsible]
