@@ -11,26 +11,26 @@ endif::[]
 
 == About
 [.lead]
-This guide compared to PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
+This guide compared to others -> PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
 
 . Supports hotspots from *Android* phones & tablets, *iOS*, *iPadOS*, and *Quectel* modems.
 . Methods used are all high performance and reliability, unlike SSH tunneling.
 . Fully open-source and free of charge.
+- Exception: the non-jailbroken iOS and iPadOS method, not open-source -- but is free of charge.
 . On "unlimited" telecom plans, grants you unlimited data for hotspots.
 . Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
 
 NOTE: Follow the entire guide, top to bottom.
 
-== 1. Preparation
+== 1. Preparation / Hosting an unlimited hotspot
 
 .Quectel modems
 [%collapsible]
 ====
 
-CAUTION: Never spoof to an IMEI of a device you do not own, you will block the device of whoever uses it -- but only if it's on the same telecom. +
-It is also illegal in the United States to spoof to an IMEI of a device that is not owned by you.
+CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the United States, and you will block the device of whoever uses it -- but only if it's on the same telecom.
 
-.You need to spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
+.Spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
 * `AT+EGMR=1,7,"The IMEI here"`
 
 ====
@@ -77,16 +77,16 @@ It is also illegal in the United States to spoof to an IMEI of a device that is 
 ====
 
 == 2. Moving past throttling
-
-NOTE: This will not work for the server / hotspot device if it is a non-rooted Android device or a non-jailbroken iOS or iPadOS device; it will work on a rooted hotspot Android device. It will however work for its clients (such as a macOS laptop).
-
 TIP: For every macOS device you use, you'd have to install PowerTunnel on each. Same applies for other OSes.
 
 .Install anti-DPI applications, specific to each OS:
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-* macOS and Linux: https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel], https://github.com/xvzc/SpoofDPI#curl[SpoofDPI], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+* macOS and Linux: https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+* Windows: https://github.com/macronut/ghostcp[GhosTCP].
+* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android]; run it in VPN mode.
+* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs utilizing WireGuard or OpenVPN work too.
 
 .How to use PowerTunnel on macOS
 [%collapsible]
@@ -103,13 +103,9 @@ image:kbmagic.jpeg[]
 
 ====
 
-* Windows: https://github.com/macronut/ghostcp[GhosTCP].
-* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android]; run it in VPN mode.
-* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs work too, but be sure to use a reptuable one that utilizes WireGuard.
-
 === Additional required steps
 
-.On AT&T / Cricket Wireless, HTTPS "packet chunking" (also called TCP fragmentation) is required to bypass throttling.
+.HTTPS "packet chunking" (also called TCP fragmentation) is required to bypass throttling.
 [%collapsible]
 ====
 
@@ -299,15 +295,17 @@ image:settings_dnscrypt_2.png[]
 image:ios_network_selection.PNG[width=281.5,height=305]
 * *Quectel*: TODO
 
-.*Rooted Android only* -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
+.*Rooted Android & Quectel* -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
+* *Rooted Android*:
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
 
 . If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
+* *Quectel*: TODO
 
 .*Android only* -> Disable "hotspot hardware acceleration" in the Settings app.
-- *Only if* you have high ping or ping spiking issues, otherwise don't touch it.
+- *Only if* you have high ping or ping spiking issues, otherwise leave it enabled.
 
 == Appendices
 
