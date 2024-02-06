@@ -214,16 +214,21 @@ Now, set permissions correctly to avoid this error: `custom_script: Found wan-ev
 `# chmod a+rx /jffs/scripts/*` +
 `# reboot`
 
-'''
-
 ====
 
 
-.GoldenOrb or OpenWrt via LuCI
+.GoldenOrb
 [%collapsible]
 ====
-. GoldenOrb specific: `Network` -> `Firewall` -> `Custom TTL Settings`
-- Ensure its option is disabled.
+Copy the following TTL settings: +
+image:firefox_wsJ71hUwXh.png[] +
+image:firefox_lnpySSfHOt.png[]
+
+====
+
+.OpenWrt
+[%collapsible]
+====
 . `Network` -> `Firewall` -> `Custom Rules`
 [source, shell]
 ----
@@ -240,8 +245,6 @@ iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
 ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
 ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 ----
-
-'''
 
 ====
 
