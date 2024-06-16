@@ -77,9 +77,11 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 == 2. Moving past throttling
 
+TIP: If using the PairVPN method for iOS and iPadOS tethering, you can only use anti-DPI applications.
+
 NOTE: Mullvad is useful if you require torrenting, or have issues with the anti-DPI applications.
 
-.Using https://mullvad.net[Mullvad VPN] instead of anti-DPI applications
+.Using https://mullvad.net[Mullvad VPN] instead of anti-DPI applications:
 . Click the Gear icon -> Enable IPv6
 - This is required to even connect to VPN servers for some telecoms.
 . Click the Gear icon -> VPN settings -> WireGuard settings -> Enable "DAITA"
@@ -265,6 +267,8 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
 == 3. Using dnscrypt2 to get past webpage blocks
 
+TIP: Unnecessary if using a VPN.
+
 https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[Installation instructions for other OSes], such as Windows, Linux, etc.
 
 .macOS
@@ -298,11 +302,11 @@ image:settings_dnscrypt_2.png[]
 
 == 5. Improving internet speeds
 
-.*Android only* -> Enable Data Saver
+.*Android only* -> Enable Data Saver:
 * This only works via USB, as it will block wireless hotspots.
 - Context: Data saver tells Android to restrict data to only the USB hotspot and which app is at the forefront.
 
-.*Android & iOS/iPadOS & Quectel* -> Disable roaming
+.*Android & iOS/iPadOS & Quectel* -> Disable roaming:
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
 * *Quectel*: TODO
@@ -313,7 +317,7 @@ image:settings_dnscrypt_2.png[]
 image:ios_network_selection.PNG[width=281.5,height=305]
 * *Quectel*: TODO
 
-.*Rooted Android & Quectel* -> Using specific 4G, LTE, 5G NA, or 5G SA bands.
+.*Rooted Android & Quectel* -> Using specific 4G, LTE, 5G NA, or 5G SA bands:
 * *Rooted Android*:
 . Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
 
@@ -322,7 +326,7 @@ image:ios_network_selection.PNG[width=281.5,height=305]
 . If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
 * *Quectel*: TODO
 
-.*Android only* -> Disable "hotspot hardware acceleration" in the Settings app.
+.*Android only* -> Disable "hotspot hardware acceleration" in the Settings app:
 - *Only if* you have high ping or ping spiking issues, otherwise leave it enabled.
 
 == Appendices
