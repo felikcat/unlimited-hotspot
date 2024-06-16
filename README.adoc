@@ -20,8 +20,6 @@ This guide compared to others -> PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Teth
 . On "unlimited" telecom plans, grants you unlimited data for hotspots.
 . Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
 
-NOTE: Follow the entire guide, top to bottom.
-
 == 1. Preparation / Hosting an unlimited hotspot
 
 .Quectel modems
@@ -44,6 +42,7 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 . Run PairVPN as a server on the iOS/iPadOS device, then use the PairVPN client on devices that connect to that server.
 - For as long as PairVPN is used, there won't be hotspot data usage.
+- Enable "Share Location" so that PairVPN can run in the background at all times, and also allow PairVPN to send notifications.
 
 ====
 
@@ -77,6 +76,22 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 ====
 
 == 2. Moving past throttling
+
+NOTE: Mullvad is useful if you require torrenting, or have issues with the anti-DPI applications.
+
+.Using https://mullvad.net[Mullvad VPN] instead of anti-DPI applications
+. Click the Gear icon -> Enable IPv6
+- This is required to even connect to VPN servers for some telecoms.
+. Click the Gear icon -> VPN settings -> WireGuard settings -> Enable "DAITA"
+- If this feature isn't there, your OS currently isn't supported.
+- The purpose of DAITA is to defend against AI-powered traffic analysis that could pick up your VPN usage, and throttle or block accordingly.
+
+NOTE: https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
+- Mysterium is not as fast as Mullvad, while ResiVPN has a very limited selection of locations. +
+- https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
+
+___
+
 TIP: For every macOS device you use, you'd have to install PowerTunnel on each. Same applies for other OSes.
 
 .Install anti-DPI applications, specific to each OS:
@@ -293,7 +308,7 @@ image:settings_dnscrypt_2.png[]
 * *Quectel*: TODO
 
 .*Android & iOS/iPadOS & Quectel* -> Switch cell tower providers specifically for problematic areas
-* *Android*: TODO
+* *Android*: Settings -> Network & internet -> SIMs -> Disable "Automatically select network"
 * *iOS*: Context -> T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
 image:ios_network_selection.PNG[width=281.5,height=305]
 * *Quectel*: TODO
