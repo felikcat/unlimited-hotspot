@@ -77,9 +77,12 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 == 2. Moving past throttling
 
-TIP: If using the PairVPN method for iOS and iPadOS tethering, you can only use anti-DPI applications.
+WARNING: If using the PairVPN or TetherFi method, VPNs cannot be used, only anti-DPI applications.
 
-NOTE: Mullvad is useful if you require torrenting, or have issues with the anti-DPI applications.
+NOTE: https://airvpn.org/[AirVPN] is useful if you require torrenting as it has comprehensive port forwarding support. +
+https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
+- Mysterium is not as fast as AirVPN or Mullvad, while ResiVPN has a very limited selection of locations. +
+- https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
 
 .Using https://mullvad.net[Mullvad VPN] instead of anti-DPI applications:
 . Click the Gear icon -> Enable IPv6
@@ -87,10 +90,6 @@ NOTE: Mullvad is useful if you require torrenting, or have issues with the anti-
 . Click the Gear icon -> VPN settings -> WireGuard settings -> Enable "DAITA"
 - If this feature isn't there, your OS currently isn't supported.
 - The purpose of DAITA is to defend against AI-powered traffic analysis that could pick up your VPN usage, and throttle or block accordingly.
-
-NOTE: https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
-- Mysterium is not as fast as Mullvad, while ResiVPN has a very limited selection of locations. +
-- https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
 
 ___
 
