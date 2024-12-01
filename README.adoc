@@ -70,7 +70,7 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 . https://topjohnwu.github.io/Magisk/[Install Magisk].
 - For macOS, I recommend using https://brew.sh/[Homebrew] to install ADB using: `brew install android-platform-tools`.
 - When it says to "Copy the boot/init_boot/recovery image to your device", that image they're asking for is located in the zip file for the OS you downloaded.
-** Example for the Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img`. Now there is boot.img extracted which can be transferred over to the Pixel phone so you can use Magisk to patch it.
+** For the Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img`. Now there is an `init_boot.img` extracted which can be transferred over to the Pixel phone so you can use Magisk to patch it. Continue to follow the official instructions.
 
 . Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v7/unlimited-hotspot-v7.zip[Unlimited Hotspot] Magisk module.
 . Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v7.zip" that was downloaded.
@@ -80,7 +80,7 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 == 2. Moving past throttling
 
-WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy.
+WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy such as AirVPN.
 
 NOTE: https://airvpn.org/[AirVPN] is useful if you require torrenting as it has comprehensive port forwarding support. +
 https://mullvad.net[Mullvad] generally has the fastest speeds. +
@@ -89,7 +89,7 @@ https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is use
 - https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
 ___
 
-TIP: For every macOS device you use, you'd have to install PowerTunnel on each. Same applies for other OSes.
+TIP: For every macOS or other OS device you use, you'd have to install PowerTunnel (or other anti-DPI application) on each; they do not have to be the same anti-DPI application.
 
 .Install anti-DPI applications, specific to each OS:
 
@@ -304,13 +304,11 @@ image:settings_dnscrypt_2.png[]
 .*Android & iOS/iPadOS & Quectel* -> Disable roaming:
 * *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
 - Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
-* *Quectel*: TODO
 
 .*Android & iOS/iPadOS & Quectel* -> Switch cell tower providers specifically for problematic areas
 * *Android*: Settings -> Network & internet -> SIMs -> Disable "Automatically select network"
 * *iOS*: Context -> T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
 image:ios_network_selection.PNG[width=281.5,height=305]
-* *Quectel*: TODO
 
 .*Rooted Android & Quectel* -> Using specific 4G, LTE, 5G NA, or 5G SA bands:
 * *Rooted Android*:
@@ -319,7 +317,6 @@ image:ios_network_selection.PNG[width=281.5,height=305]
 . Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
 
 . If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
-* *Quectel*: TODO
 
 .*Android only* -> Disable "hotspot hardware acceleration" in the Settings app:
 - *Only if* you have high ping or ping spiking issues, otherwise leave it enabled.
