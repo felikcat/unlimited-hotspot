@@ -67,7 +67,10 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 [%collapsible]
 ====
 
-. https://topjohnwu.github.io/Magisk/[Install Magisk]; read "Getting Started", then "Patching Images".
+. https://topjohnwu.github.io/Magisk/[Install Magisk].
+- For macOS, I recommend using https://brew.sh/[Homebrew] to install ADB using: `brew install adb`.
+- When it says to "Copy the boot/init_boot/recovery image to your device", that image they're asking for is located in the zip file for the OS you downloaded.
+** Example for the Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img`. Now there is boot.img extracted which can be transferred over to the Pixel phone so you can use Magisk to patch it.
 
 . Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v7/unlimited-hotspot-v7.zip[Unlimited Hotspot] Magisk module.
 . Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v7.zip" that was downloaded.
@@ -77,20 +80,13 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 == 2. Moving past throttling
 
-WARNING: If using the PairVPN or TetherFi method, VPNs cannot be used, only anti-DPI applications.
+WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy.
 
 NOTE: https://airvpn.org/[AirVPN] is useful if you require torrenting as it has comprehensive port forwarding support. +
+https://mullvad.net[Mullvad] generally has the fastest speeds. +
 https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
 - Mysterium is not as fast as AirVPN or Mullvad, while ResiVPN has a very limited selection of locations. +
 - https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
-
-.Using https://mullvad.net[Mullvad VPN] instead of anti-DPI applications:
-. Click the Gear icon -> Enable IPv6
-- This is required to even connect to VPN servers for some telecoms.
-. Click the Gear icon -> VPN settings -> WireGuard settings -> Enable "DAITA"
-- If this feature isn't there, your OS currently isn't supported.
-- The purpose of DAITA is to defend against AI-powered traffic analysis that could pick up your VPN usage, and throttle or block accordingly.
-
 ___
 
 TIP: For every macOS device you use, you'd have to install PowerTunnel on each. Same applies for other OSes.
