@@ -68,7 +68,7 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 ====
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk].
-- For macOS, I recommend using https://brew.sh/[Homebrew] to install ADB using: `brew install adb`.
+- For macOS, I recommend using https://brew.sh/[Homebrew] to install ADB using: `brew install android-platform-tools`.
 - When it says to "Copy the boot/init_boot/recovery image to your device", that image they're asking for is located in the zip file for the OS you downloaded.
 ** Example for the Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img`. Now there is boot.img extracted which can be transferred over to the Pixel phone so you can use Magisk to patch it.
 
