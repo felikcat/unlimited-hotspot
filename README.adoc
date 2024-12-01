@@ -347,7 +347,4 @@ Third-party scripts
 '''
 
 === Donations
-Tip the apps or programs you rely on first, such as TetherFi for non-rooted Android devices; some like PowerTunnel don't seem to take donations.
-
-Tipping is appreciated, and is used for buying access to Verizon and AT&T plans: +
-image:kofi_qrcode.png[width=160,height=160,link="https://ko-fi.com/felikcat"]
+Tip the apps or programs you rely on, such as TetherFi for non-rooted Android devices; some like PowerTunnel don't seem to take donations.
