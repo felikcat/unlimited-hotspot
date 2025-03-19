@@ -80,24 +80,24 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 == 2. Moving past throttling
 
-WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy such as AirVPN.
+WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications that operate via proxy. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy such as AirVPN. It's recommended to manually configure programs such as the Brave browser with using a proxy, instead of attempting a system-wide proxy; for SpoofDPI this would be running with `-system-proxy false`.
 
 NOTE: https://airvpn.org/[AirVPN] is useful if you require torrenting as it has comprehensive port forwarding support. +
 https://mullvad.net[Mullvad] generally has the fastest speeds. +
 https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
 - Mysterium is not as fast as AirVPN or Mullvad, while ResiVPN has a very limited selection of locations. +
 - https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
-___
 
-TIP: For every macOS or other OS device you use, you'd have to install PowerTunnel (or other anti-DPI application) on each; they do not have to be the same anti-DPI application.
+TIP: For every macOS or other OS device you use, you'd have to install SpoofDPI (or some other anti-DPI application) on each; they do not have to be the same anti-DPI application.
 
 .Install anti-DPI applications, specific to each OS:
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-* macOS and Linux: https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel], or https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
-* Windows: https://github.com/macronut/ghostcp[GhosTCP].
-* Android: https://github.com/krlvm/PowerTunnel-Android#configuring[PowerTunnel for Android]; run it in VPN mode.
+* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], or https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel]. +
+https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] exists but has difficulty with Apple chipset macOS (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+* Windows: https://github.com/ValdikSS/GoodbyeDPI[GoodbyeDPI], or https://github.com/macronut/ghostcp[GhosTCP].
+* Android: https://github.com/dovecoteescapee/ByeDPIAndroid[ByeDPI]; run it in VPN mode.
 * iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs utilizing WireGuard or OpenVPN work too.
 
 .How to use PowerTunnel on macOS
@@ -262,7 +262,7 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
 == 3. Using dnscrypt2 to get past webpage blocks
 
-TIP: Unnecessary if using a VPN.
+TIP: Unnecessary if using a VPN or some anti-DPI programs, be sure to test.
 
 https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[Installation instructions for other OSes], such as Windows, Linux, etc.
 
