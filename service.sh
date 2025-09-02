@@ -22,7 +22,7 @@ sysctl -w kernel.sched_schedstats=0
 echo off > /proc/sys/kernel/printk_devkmsg
 for disks in /sys/block/*/queue; do
     # Don't log I/O statistics.
-    echo 0 > "$disks/iostats" 
+    echo 0 > "$disks/iostats"
 done
 # Use "Explicit Congestion Notification" for both incoming and outgoing packets.
 sysctl -w net.ipv4.tcp_ecn=1
@@ -30,27 +30,36 @@ sysctl -w net.ipv4.tcp_ecn=1
 ## For some devices with old Linux kernels, this lessens CPU interrupts and thus saves battery.
 sysctl -w kernel.timer_migration=0
 
-# Use the best available TCP congestion algorithm.
-sysctl -w net.ipv4.tcp_congestion_control=cubic
-sysctl -w net.ipv4.tcp_congestion_control=bbr
-sysctl -w net.ipv4.tcp_congestion_control=bbr2
-sysctl -w net.ipv4.tcp_congestion_control=bbr3
+# Dynamically select the best available TCP congestion algorithm.
+AVAILABLE_CONGESTION=$(sysctl -n net.ipv4.tcp_available_congestion_control 2>/dev/null)
+if echo "$AVAILABLE_CONGESTION" | grep -q bbr3; then
+    sysctl -w net.ipv4.tcp_congestion_control=bbr3
+elif echo "$AVAILABLE_CONGESTION" | grep -q bbr2; then
+    sysctl -w net.ipv4.tcp_congestion_control=bbr2
+elif echo "$AVAILABLE_CONGESTION" | grep -q bbr; then
+    sysctl -w net.ipv4.tcp_congestion_control=bbr
+else
+    sysctl -w net.ipv4.tcp_congestion_control=cubic
+fi
 #== END ==
 
 
 # Don't apply iptables rules until Android has fully booted.
-until [ "$(getprop sys.boot_completed)" -eq 1 ]; do
-    sleep 1s
+until [ "$(getprop sys.boot_completed)" = 1 ]; do
+    sleep 1
 done
 
 # Also bypass TTL/HL detections for other devices that connect to this device.
 # Notes:
 ## Routers (as the client) require their own TTL/HL increment script.
 ## Tethering interfaces -> rndis0: USB, wlan1: Wi-Fi, bt-pan: Bluetooth.
-## -A: last rule in chain, -I: "head"/first rule in chain (by default).
-for INTERFACE in "rndis0" "wlan1" "bt-pan"; do
-    iptables -t mangle -A PREROUTING -i $INTERFACE -j TTL --ttl-inc 1
-    iptables -t mangle -I POSTROUTING -o $INTERFACE -j TTL --ttl-inc 1
-    ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i $INTERFACE -j HL --hl-inc 1
-    ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o $INTERFACE -j HL --hl-inc 1
+## -A: append rule to chain (last position), -I: insert rule at beginning of chain.
+for INTERFACE in "rndis0" "wlan0" "wlan1" "ap0" "bt-pan"; do
+    # Skip if interface does not exist to avoid errors.
+    if [ -d "/sys/class/net/$INTERFACE" ]; then
+        iptables -t mangle -A PREROUTING -i "$INTERFACE" -j TTL --ttl-inc 1
+        iptables -t mangle -I POSTROUTING -o "$INTERFACE" -j TTL --ttl-inc 1
+        ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i "$INTERFACE" -j HL --hl-inc 1
+        ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o "$INTERFACE" -j HL --hl-inc 1
+    fi
 done

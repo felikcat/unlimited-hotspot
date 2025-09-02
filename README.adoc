@@ -9,40 +9,42 @@ ifdef::env-github[]
 :warning-caption: :warning:
 endif::[]
 
+:toc:
+
 == About
 [.lead]
-This guide compared to others -> PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, iPhoneModem:
+Compared to other solutions such as PDANet, FoxFi, NetShare, EasyTether, Wi-Fi Tether Router, TetherMe, iTether, MyWi, and iPhoneModem:
 
-. Supports hotspots from *Android* phones & tablets, *iOS*, *iPadOS*, and *Quectel* modems.
-. Methods used are all high performance and reliability, unlike SSH tunneling.
-. Fully open-source and free of charge.
-- Exception: the non-jailbroken iOS and iPadOS method, not open-source -- but is free of charge.
-. On "unlimited" telecom plans, grants you unlimited data for hotspots.
-. Moves past various types of throttling, such as limited video quality on YouTube or other streaming services.
+. This guide supports hotspots from *Android* phones and tablets, *iOS*, *iPadOS*, and *Quectel* modems.
+. The methods provide high performance and reliability, unlike SSH tunneling.
+. It is fully open-source and free.
+- Exception: The iOS and iPadOS method is not open-source but remains free.
+. On "unlimited" telecom plans, it provides unlimited hotspot data.
+. It bypasses various throttling types, such as reduced video quality on YouTube or other streaming services.
 
-== 1. Preparation / Hosting an unlimited hotspot
+== Hosting an Unlimited Hotspot
 
 .Quectel modems
 [%collapsible]
 ====
 
-CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the United States, and you will block the device of whoever uses it -- but only if it's on the same telecom.
+CAUTION: Do not spoof an IMEI from a device you do not own. This is illegal in the United States and may block the original device if it uses the same telecom provider.
 
-.Spoof the Quectel modem's IMEI to a phone or tablet you own that has mobile data capability:
+.Spoof the Quectel modem's IMEI to match a phone or tablet you own with mobile data:
 * `AT+EGMR=1,7,"The IMEI here"`
 
 ====
 
-.Non-jailbroken *iOS* and *iPadOS*
+.*iOS* and *iPadOS*
 [%collapsible]
 ====
-. https://pairvpn.com/install[Install PairVPN] from the App Store on the iOS or iPadOS device, and on the clients (such as a Windows laptop).
+. https://pairvpn.com/install[Install PairVPN] from the App Store on the iOS or iPadOS device and on client devices (such as a Windows laptop).
 
-. Connect the client to your iOS/iPadOS device via its "Mobile Hotspot" or through USB tethering.
+. Connect the client to your iOS/iPadOS device using its "Mobile Hotspot" or USB tethering.
 
-. Run PairVPN as a server on the iOS/iPadOS device, then use the PairVPN client on devices that connect to that server.
-- For as long as PairVPN is used, there won't be hotspot data usage.
-- Enable "Share Location" so that PairVPN can run in the background at all times, and also allow PairVPN to send notifications.
+. Run PairVPN as a server on the iOS/iPadOS device, then connect clients using the PairVPN app.
+- While PairVPN is active, hotspot data usage will not be counted.
+- Enable "Share Location" to allow PairVPN to run in the background continuously, and permit notifications.
 
 ====
 
@@ -54,12 +56,12 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 
 . Open the TetherFi app.
 
-. Configure the following in the "Hotspot" tab:
-- Broadcast frequency -> 5GHz
-- Enable all: Wake Locks
+. In the "Hotspot" tab, configure these settings:
+- Broadcast frequency: 5GHz
+- Enable all Wake Locks
 - Enable: Bind Proxy to All Interfaces
 
-. Open the "How To" tab and follow its instructions.
+. Follow the instructions in the "How To" tab.
 
 ====
 
@@ -68,37 +70,37 @@ CAUTION: Never spoof to an IMEI of a device you do not own, it's illegal in the 
 ====
 
 . https://topjohnwu.github.io/Magisk/[Install Magisk].
-- For macOS, I recommend using https://brew.sh/[Homebrew] to install ADB using: `brew install android-platform-tools`.
-- When it says to "Copy the boot/init_boot/recovery image to your device", that image they're asking for is located in the zip file for the OS you downloaded.
-** For the Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img`. Now there is an `init_boot.img` extracted which can be transferred over to the Pixel phone so you can use Magisk to patch it. Continue to follow the official instructions.
+- For macOS, use https://brew.sh/[Homebrew] to install ADB with: `brew install android-platform-tools`.
+- When prompted to copy the boot/init_boot/recovery image to your device, find it in the downloaded OS zip file.
+** For Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img` to get `init_boot.img`. Transfer this to the phone and patch it with Magisk. Follow the official instructions.
 
 . Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v7/unlimited-hotspot-v7.zip[Unlimited Hotspot] Magisk module.
-. Open Magisk -> Modules -> Install from storage -> Select the "unlimited-hotspot-v7.zip" that was downloaded.
+. In Magisk, go to Modules, select Install from storage, and choose the downloaded "unlimited-hotspot-v7.zip".
 . Reboot.
 
 ====
 
-== 2. Moving past throttling
+== Bypassing Throttling and Restrictions
 
-WARNING: If using the PairVPN method, VPNs cannot be used, only anti-DPI applications that operate via proxy. The TetherFi method still allows for VPNs, but requires a VPN that can run off a proxy such as AirVPN. It's recommended to manually configure programs such as the Brave browser with using a proxy, instead of attempting a system-wide proxy; for SpoofDPI this would be running with `-system-proxy false`.
+WARNING: The PairVPN method supports VPN use on the host iOS/iPadOS device, which extends to connected clients. The TetherFi method also supports VPNs but requires one that uses a proxy, such as AirVPN.
 
-NOTE: https://airvpn.org/[AirVPN] is useful if you require torrenting as it has comprehensive port forwarding support. +
-https://mullvad.net[Mullvad] generally has the fastest speeds. +
-https://www.mysteriumvpn.com/[Mysterium] or https://resivpn.com/[ResiVPN] is useful if you require residental IPs, or use streaming services that block VPNs. +
-- Mysterium is not as fast as AirVPN or Mullvad, while ResiVPN has a very limited selection of locations. +
-- https://www.mysteriumdark.com/[Mysterium Dark] lets you pay only by data usage, while https://www.mysteriumvpn.com/[Mysterium] is a subscription model.
+NOTE: https://airvpn.org/[AirVPN] supports torrenting with full port forwarding. +
+https://mullvad.net[Mullvad] offers the highest speeds. +
+https://www.mysteriumvpn.com/[Mysterium] provides residential IPs for services that block VPNs. +
+- Mysterium is slower than AirVPN or Mullvad, and ResiVPN has limited locations. +
+- https://www.mysteriumdark.com/[Mysterium Dark] charges by data usage, while https://www.mysteriumvpn.com/[Mysterium] uses a subscription model.
 
-TIP: For every macOS or other OS device you use, you'd have to install SpoofDPI (or some other anti-DPI application) on each; they do not have to be the same anti-DPI application.
+TIP: Install an anti-DPI application on each device, such as macOS or others. Different applications can be used across devices.
 
-.Install anti-DPI applications, specific to each OS:
+.Install anti-DPI applications for each operating system:
 
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
 
-* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI], or https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel]. +
-https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] exists but has difficulty with Apple chipset macOS (for macOS, use zapret's https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
-* Windows: https://github.com/ValdikSS/GoodbyeDPI[GoodbyeDPI], or https://github.com/macronut/ghostcp[GhosTCP].
-* Android: https://github.com/dovecoteescapee/ByeDPIAndroid[ByeDPI]; run it in VPN mode.
-* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; any other VPNs utilizing WireGuard or OpenVPN work too.
+* macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI] or https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel]. +
+https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] is available but challenging to use on Apple silicon macOS (use its https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+* Windows: https://github.com/ValdikSS/GoodbyeDPI[GoodbyeDPI] or https://github.com/macronut/ghostcp[GhosTCP].
+* Android: https://github.com/dovecoteescapee/ByeDPIAndroid[ByeDPI]; use in VPN mode.
+* iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; other WireGuard or OpenVPN-based VPNs also work.
 
 .How to use PowerTunnel on macOS
 [%collapsible]
@@ -106,9 +108,9 @@ https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] exists 
 
 . Make sure the https://github.com/krlvm/PowerTunnel/releases[latest PowerTunnel.jar] is downloaded.
 
-. Download the https://adoptium.net/download/[Adoptium installer] and open it.
+. Download and install the https://adoptium.net/download/[Adoptium Temurin installer].
 
-. After you got done installing Adoptium "Temurin", in *Finder*, kbd:[Left Option] + kbd:[Right Click] PowerTunnel.jar then click "Open". +
+. After installation, in Finder, hold kbd:[Option] and right-click PowerTunnel.jar, then select "Open". +
 image:kbmagic.jpeg[]
 
 . image:settings_powertunnel.png[]
@@ -122,7 +124,7 @@ image:kbmagic.jpeg[]
 ====
 
 . image:PowerTunnel1.png[480,360]
-. Use a low chunk size, such as "1": + 
+. Set a low chunk size, such as "1": + 
 image:PowerTunnel2.png[480,360]
 
 ====
@@ -131,8 +133,8 @@ image:PowerTunnel2.png[480,360]
 [%collapsible]
 ====
 
-. Go to PowerTunnel, then click on "Options".
-. Configure the upstream proxy server to match what TetherFi says to use. For my case, it was 192.168.49.1 with port 8228 for the HTTP/HTTPS protocol.
+. In PowerTunnel, go to "Options".
+. Set the upstream proxy to match TetherFi's settings. For example, 192.168.49.1 on port 8228 for HTTP/HTTPS.
 - image:PowerTunnel3.png[480,360]
 
 ====
@@ -140,37 +142,31 @@ image:PowerTunnel2.png[480,360]
 .macOS
 [%collapsible]
 ====
-. https://github.com/felikcat/unlimited-hotspot/archive/refs/heads/main.zip[Download Unlimited Hotspot], then open `unlimited-hotspot-main.zip` in *Finder* to extract it.
-. After extracted, open the "unlimited-hotspot-main" folder, then open its "macOS" folder.
-. Open *Terminal*.
+. https://github.com/felikcat/unlimited-hotspot/archive/refs/heads/main.zip[Download Unlimited Hotspot], then extract "unlimited-hotspot-main.zip" in Finder.
+. Open the "unlimited-hotspot-main" folder, then the "macOS" folder.
+. Open Terminal.
 
-. Type `sudo -i`, enter your login password, then press kbd:[Enter].
-. Type `cp` then drag the `set-ios-tcp-stack.sh` file in, press kbd:[Space], type in `/var/root` and press kbd:[Enter].
-. Type `cp` then drag the `felikcat.set.ios.tcpstack.plist` file in, press kbd:[Space], type in `/Library/LaunchDaemons` and then press kbd:[Enter].
+. Type `sudo -i`, enter your password, and press Enter.
+. Type `cp`, drag `set-ios-tcp-stack.sh` into the terminal, press Space, type `/var/root`, and press Enter.
+. Type `cp`, drag `felikcat.set.ios.tcpstack.plist` into the terminal, press Space, type `/Library/LaunchDaemons`, and press Enter.
 . `chmod +x /var/root/set-ios-tcp-stack.sh`
 . `launchctl load -w /Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist`
-
-.Now we need to add three Packet Filter rules and enable PF.
-. `nano /etc/pf.conf`
-. Add the following three lines before `nat-anchor`: +
-image:pf_rules.png[]
-. `pfctl -f /etc/pf.conf` then `pfctl -e`
 
 '''
 ====
 
 === Routers
-For Quectel modems, or if the hotspot device is plugged into a router, then these steps are required:
+For Quectel modems or hotspots connected to a router, follow these steps:
 
 .Asuswrt-Merlin
 [%collapsible]
 ====
-. `Advanced Settings - WAN` -> disable `Extend the TTL value` and `Spoof LAN TTL value`.
-. `Advanced Settings - Administration`
-- `Enable JFFS custom scripts and configs` -> "Yes"
-- `Enable SSH` -> "LAN only"
-. Replace the LAN IP and login name if needed: `$ ssh 192.168.50.1 -l asus`
-- Use other SSH clients if preferred, such as MobaXterm or Termius.
+. In Advanced Settings - WAN, disable `Extend the TTL value` and `Spoof LAN TTL value`.
+. In Advanced Settings - Administration:
+- Enable JFFS custom scripts and configs: "Yes"
+- Enable SSH: "LAN only"
+. SSH to the router, replacing IP and username if needed: `$ ssh 192.168.50.1 -l asus`
+- Use SSH clients like MobaXterm or Termius if preferred.
 . `# nano /jffs/scripts/wan-event`
 
 [source, shell]
@@ -222,17 +218,16 @@ iptables -t mangle -I POSTROUTING -o usb+ -j TTL --ttl-inc 2
 ip6tables -t mangle -A PREROUTING ! -p icmpv6 -i usb+ -j HL --hl-inc 2
 ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 ----
-Now, set permissions correctly to avoid this error: `custom_script: Found wan-event, but script is not set executable!` +
+Now, set permissions to avoid the error: `custom_script: Found wan-event, but script is not set executable!` +
 `# chmod a+rx /jffs/scripts/*` +
 `# reboot`
 
 ====
 
-
 .GoldenOrb
 [%collapsible]
 ====
-Copy the following TTL settings: +
+Copy these TTL settings: +
 image:firefox_wsJ71hUwXh.png[] +
 image:firefox_lnpySSfHOt.png[]
 
@@ -241,7 +236,7 @@ image:firefox_lnpySSfHOt.png[]
 .OpenWrt
 [%collapsible]
 ====
-. `Network` -> `Firewall` -> `Custom Rules`
+. Go to `Network` -> `Firewall` -> `Custom Rules`
 [source, shell]
 ----
 # Removes these iptables entries if present; only removes once, so if the same entry is present twice (script assumes this never happens), it would need to be removed twice.
@@ -260,66 +255,64 @@ ip6tables -t mangle -I POSTROUTING ! -p icmpv6 -o usb+ -j HL --hl-inc 2
 
 ====
 
-== 3. Using dnscrypt2 to get past webpage blocks
+== Configuring dnscrypt2 to Bypass Webpage Blocks
 
-TIP: Unnecessary if using a VPN or some anti-DPI programs, be sure to test.
+TIP: Unnecessary if using a VPN or certain anti-DPI programs; test to confirm.
 
 https://github.com/DNSCrypt/dnscrypt-proxy/wiki/Installation[Installation instructions for other OSes], such as Windows, Linux, etc.
 
 .macOS
 [%collapsible]
 ====
-. Go to https://ipleak.net/[AirVPN's IP Leak] to see your current DNS servers. Save a screenshot of this page.
+. Visit https://ipleak.net/[AirVPN's IP Leak] page to note your current DNS servers. Take a screenshot.
 
-. https://brew.sh/[Install Homebrew] if you haven't already.
+. https://brew.sh/[Install Homebrew] if not already done.
 
-. `brew install dnscrypt-proxy`
+. Run `brew install dnscrypt-proxy`
 
-. Be sure to read the information Brew gives you after it's done installing dnscrypt-proxy.
-- It is recommended to install dnscrypt-proxy's service.
+. Follow Brew's post-installation information.
+- Install dnscrypt-proxy's service as recommended.
 
-. Open *Settings*, go to Network, then click on the Network interface you are currently using; for me, that is "USB 10/100/1G/2.5G LAN".
+. In Settings, go to Network, select your current interface (e.g., "USB 10/100/1G/2.5G LAN").
 . Click "Details..." +
 image:settings_dnscrypt.png[]
-. Go to DNS, press the Plus (+) button under "DNS Servers", then type in `127.0.0.1` +
+. In DNS, add `127.0.0.1` using the Plus (+) button. +
 image:settings_dnscrypt_2.png[]
 
-. Go back to https://ipleak.net/[AirVPN's IP Leak] to see if the changes to your DNS servers is successful; compare it to your prior screenshot.
+. Revisit https://ipleak.net/[AirVPN's IP Leak] page to verify DNS changes; compare with your screenshot.
 
 ====
 
-== 4. Confirm the hotspot is un-throttled
+== Verifying Throttling Bypass
 
-* Use https://fast.com[Netflix's Speedtest], then compare that result to https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
-- This tests for throttling of streaming servers (Netflix), various forms of data fingerprinting, and hotspot detections.
+* Use https://fast.com[Netflix's Speedtest], then compare with https://www.waveform.com/tools/bufferbloat[Waveform's Bufferbloat Test]. +
+- This checks for throttling on streaming (Netflix), data fingerprinting, and hotspot detections.
 
-
-
-== 5. Improving internet speeds
+== Optimizing Internet Speeds
 
 .*Android only* -> Enable Data Saver:
-* This only works via USB, as it will block wireless hotspots.
-- Context: Data saver tells Android to restrict data to only the USB hotspot and which app is at the forefront.
+* Works only via USB, as it blocks wireless hotspots.
+- Data Saver restricts data to USB hotspot and foreground app.
 
 .*Android & iOS/iPadOS & Quectel* -> Disable roaming:
-* *Android & iOS*: Search for "Roaming" in the Settings app, then disable it.
-- Context: Roaming to a different telecom usually has unavoidable throttling. Roaming kicks in when signal strength is either very poor or non-existent from your telecom. In T-Mobile USA's case, they roam on AT&T with only up to 250kbps download & upload speeds on AT&T's towers.
+* In Settings, search for "Roaming" and disable it.
+- Roaming often throttles; e.g., T-Mobile USA roams on AT&T at 250kbps.
 
-.*Android & iOS/iPadOS & Quectel* -> Switch cell tower providers specifically for problematic areas
+.*Android & iOS/iPadOS & Quectel* -> Switch cell towers in problematic areas
 * *Android*: Settings -> Network & internet -> SIMs -> Disable "Automatically select network"
-* *iOS*: Context -> T-Mobile owns Sprint's towers. For me, Sprint has consistently better speeds at my home. +
+* *iOS*: For T-Mobile, Sprint towers may offer better speeds. +
 image:ios_network_selection.PNG[width=281.5,height=305]
 
-.*Rooted Android & Quectel* -> Using specific 4G, LTE, 5G NA, or 5G SA bands:
+.*Rooted Android & Quectel* -> Use specific 4G, LTE, 5G NA, or 5G SA bands:
 * *Rooted Android*:
-. Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for its network monitoring. Without NetMonster, you are blind to what bands are used, and their signal strength.
+. Install https://apkpure.com/netmonster/cz.mroczis.netmonster[NetMonster] for network monitoring.
 
-. Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru] then use it to set the allowed LTE bands to only the "LTE 4x4 Bands" listed on https://cacombos.com/device/G025E[cacombos.com] for your device. This could stabilize your speeds, and can potentially increase speeds.
+. Install https://apkpure.com/network-signal-guru/com.qtrun.QuickTest[Network Signal Guru], set allowed LTE bands to "LTE 4x4 Bands" from https://cacombos.com/device/G025E[cacombos.com] for your device. This may stabilize or increase speeds.
 
-. If the ads bother you, enable Systemless Hosts in Magisk's settings, then install https://github.com/AdAway/AdAway/releases[AdAway] and use its Root method; do not use its VPN method.
+. For ads, enable Systemless Hosts in Magisk, install https://github.com/AdAway/AdAway/releases[AdAway] using Root method (not VPN).
 
-.*Android only* -> Disable "hotspot hardware acceleration" in the Settings app:
-- *Only if* you have high ping or ping spiking issues, otherwise leave it enabled.
+.*Android only* -> Disable "hotspot hardware acceleration" in Settings:
+- Only if experiencing high ping or spikes; otherwise, keep enabled.
 
 == Appendices
 
@@ -333,18 +326,15 @@ image:ios_network_selection.PNG[width=281.5,height=305]
 . https://incolumitas.com/2021/03/13/tcp-ip-fingerprinting-for-vpn-and-proxy-detection/
 . https://github.com/NikolaiT/zardaxt
 . https://blog.cloudflare.com/optimizing-tcp-for-high-throughput-and-low-latency/
-. Showed that moving past the hotspot clasification on non-jailbroken iOS and iPadOS devcies is possible, via ad-hoc Wi-Fi on the client, and a proxy server on the iOS/iPadOS device: https://blog.cyrusroshan.com/post/phone-data-hotspot
+. Demonstrated bypassing hotspot classification on non-jailbroken iOS/iPadOS via ad-hoc Wi-Fi and proxy: https://blog.cyrusroshan.com/post/phone-data-hotspot
 
 [.lead]
 Third-party scripts
 
-. `/jffs/scripts/wan-event` used for Asuswrt-Merlin is a refined version of https://www.snbforums.com/threads/wan-start-script-also-run-on-wan-stop.61295/#post-542636[this script].
+. The `/jffs/scripts/wan-event` for Asuswrt-Merlin is a refined version of https://www.snbforums.com/threads/wan-start-script-also-run-on-wan-stop.61295/#post-542636[this script].
 
 ====
 
-*You've reached the end of this guide.* Star it if you liked it.
+*You've reached the end of this guide.* Star it if you liked it. Be sure to donate to TetherFi or other projects you rely on.
 
 '''
-
-=== Donations
-Tip the apps or programs you rely on, such as TetherFi for non-rooted Android devices; some like PowerTunnel don't seem to take donations.
