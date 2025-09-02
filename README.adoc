@@ -94,7 +94,7 @@ TIP: Install an anti-DPI application on each device, such as macOS or others. Di
 
 .Install anti-DPI applications for each operating system:
 
-* FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[zapret].
+* FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.en.md[zapret].
 
 * macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI] or https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel]. +
 https://github.com/bol-van/zapret/blob/master/docs/readme.eng.md[zapret] is available but challenging to use on Apple silicon macOS (use its https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
