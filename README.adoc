@@ -97,7 +97,7 @@ TIP: Install an anti-DPI application on each device, such as macOS or others. Di
 * FreeBSD, OpenBSD: https://github.com/bol-van/zapret/blob/master/docs/bsd.en.md[zapret].
 
 * macOS and Linux: https://github.com/xvzc/SpoofDPI[SpoofDPI] or https://github.com/krlvm/PowerTunnel#configuring[PowerTunnel]. +
-https://github.com/bol-van/zapret/blob/master/docs/readme.en.md[zapret] is available but challenging to use on Apple silicon macOS (use its https://github.com/bol-van/zapret/blob/master/docs/bsd.eng.md[BSD instructions]).
+https://github.com/bol-van/zapret/blob/master/docs/readme.en.md[zapret] is available but challenging to use on Apple silicon macOS (use its https://github.com/bol-van/zapret/blob/master/docs/bsd.en.md[BSD instructions]).
 * Windows: https://github.com/ValdikSS/GoodbyeDPI[GoodbyeDPI] or https://github.com/macronut/ghostcp[GhosTCP].
 * Android: https://github.com/dovecoteescapee/ByeDPIAndroid[ByeDPI]; use in VPN mode.
 * iOS/iPadOS: https://apps.apple.com/in/app/1-1-1-1-faster-internet/id1423538627[Cloudflare's 1.1.1.1 app]; other WireGuard or OpenVPN-based VPNs also work.
