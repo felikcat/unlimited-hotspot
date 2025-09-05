@@ -152,6 +152,9 @@ image:PowerTunnel2.png[480,360]
 . Type `cp`, drag `set-ios-tcp-stack.sh` into the terminal, press Space, type `/var/root`, and press Enter.
 . Type `cp`, drag `felikcat.set.ios.tcpstack.plist` into the terminal, press Space, type `/Library/LaunchDaemons`, and press Enter.
 . `chmod +x /var/root/set-ios-tcp-stack.sh`
+. If your router or phone already increases the TTL of all its clients by 1, edit `/Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist` and remove the following lines:
+- `${SYSCTL} -w net.inet.ip.ttl=65`
+- `${SYSCTL} -w net.inet6.ip6.hlim=65`
 . `launchctl load -w /Library/LaunchDaemons/felikcat.set.ios.tcpstack.plist`
 
 '''
