@@ -44,10 +44,13 @@ fi
 #== END ==
 
 
-# Don't apply iptables rules until Android has fully booted.
+# Don't apply iptables rules or WiFi country code until Android has fully booted.
 until [ "$(getprop sys.boot_completed)" = 1 ]; do
     sleep 1
 done
+
+# Allow 6GHz WiFi tethering in any country.
+cmd wifi force-country-code enabled BR
 
 # Also bypass TTL/HL detections for other devices that connect to this device.
 # Notes:

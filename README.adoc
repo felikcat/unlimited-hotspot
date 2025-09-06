@@ -24,6 +24,11 @@ Compared to other solutions such as PDANet, FoxFi, NetShare, EasyTether, Wi-Fi T
 
 == Hosting an Unlimited Hotspot
 
+.Quectel and Rooted Android are the best methods available.
+- For rooted Android the OS used on most devices that's high-quality is https://lineageos.org/[LineageOS].
+** After installing the OS, sideload/flash a kernel that contains "KernelSU Next" and "TTL/HL mangling", such as https://github.com/engstk/gs/releases[blu_spark] for Google Pixel 6/7/8/9 phones. Avoid Magisk or KernelSU.
+** To install the KernelSU Next app, go to the latest release https://github.com/KernelSU-Next/KernelSU-Next/releases/[here], click "Show all assets", then scroll all the way down until the .apk file is found and install that.
+
 .Quectel modems
 [%collapsible]
 ====
@@ -70,14 +75,10 @@ GrapheneOS doesn't require TetherFi; turn on regular hotspot tethering instead.
 .Rooted *Android*
 [%collapsible]
 ====
+. Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v9/unlimited-hotspot-v9.zip[Unlimited Hotspot] Magisk/KernelSU/KernelSU Next module.
 
-. https://topjohnwu.github.io/Magisk/[Install Magisk].
-- For macOS, use https://brew.sh/[Homebrew] to install ADB with: `brew install android-platform-tools`.
-- When prompted to copy the boot/init_boot/recovery image to your device, find it in the downloaded OS zip file.
-** For Google Pixel 7 Pro: Extract `image-cheetah-ap3a.241105.007.zip`, then extract `bootloader-cheetah-cloudripper-15.0-11969070.img` to get `init_boot.img`. Transfer this to the phone and patch it with Magisk. Follow the official instructions.
+. In Magisk/KernelSU/KernelSU Next app, go to Modules, select Install from storage, and choose the downloaded "unlimited-hotspot-v9.zip".
 
-. Download the https://github.com/felikcat/unlimited-hotspot/releases/download/v7/unlimited-hotspot-v7.zip[Unlimited Hotspot] Magisk module.
-. In Magisk, go to Modules, select Install from storage, and choose the downloaded "unlimited-hotspot-v7.zip".
 . Reboot.
 
 ====
