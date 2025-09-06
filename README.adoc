@@ -17,10 +17,15 @@ Compared to other solutions such as PDANet, FoxFi, NetShare, EasyTether, Wi-Fi T
 
 . This guide supports hotspots from *Android* phones and tablets, *iOS*, *iPadOS*, and *Quectel* modems.
 . The methods provide high performance and reliability, unlike SSH tunneling.
+
 . It is fully open-source and free.
 - Exception: The iOS and iPadOS method is not open-source but remains free.
-. On "unlimited" telecom plans, it provides unlimited hotspot data.
+
+. On "unlimited" telecom plans, it provides unlimited hotspot data by not being classified as hotspot data.
+
 . It bypasses various throttling types, such as reduced video quality on YouTube or other streaming services.
+
+. Allows for 6GHz WiFi tethering on some rooted Android devices, where it would otherwise be blocked.
 
 == Hosting an Unlimited Hotspot
 
